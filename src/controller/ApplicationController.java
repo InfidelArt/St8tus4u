@@ -10,7 +10,7 @@ public class ApplicationController {
 	 * A method to get data about the logged in user
 	 * A method to get the list of the user's activities
 	 * A method to get data about a specific activity
-	 * A method to add a new activiity
+	 * A method to add a new activity
 	 * A method to remove a chosen activity
 	 * A method to change the name of an activity
 	 * A method to log out
@@ -25,7 +25,7 @@ public class ApplicationController {
 	
 	public static void main(String[] args) {
 		// Should we have main in the controller or in the front-end?
-
+		
 	}
 
 }
