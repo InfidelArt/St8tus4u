@@ -1,6 +1,8 @@
 package controller;
 
-public class ApplicationController {
+import java.util.HashMap;
+
+public class ApplicationController implements ApplicationControllerInterface {
 	
 	/*
 	 * What must the controller be able to do?
@@ -22,10 +24,104 @@ public class ApplicationController {
 	
 	
 	
-	
 	public static void main(String[] args) {
 		// Should we have main in the controller or in the front-end?
-		
+	}
+
+	@Override
+	public boolean logIn(String username, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean registerNewAccount(String username, String password, String gender) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String[] getUserData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[][] getUserActivities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[][] getActivityData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addNewActivity(String nameOfActivity, String pathToCSVFile) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removeActivity(String activityID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setName(String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean changeGender(String gender) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setAge(int age) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setWeight(double weight) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setLength(double length) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean changePassword(String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean changeActivityName(String activityID, String newName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isLoggedIn() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean logOut() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
