@@ -3,28 +3,28 @@ package controller;
 public class ApplicationController {
 	
 	/*
-	 * Vad behöver applikationen kunna göra?
+	 * What must the controller be able to do?
 	 * 
-	 * En metod för att logga in
-	 * En metod för att registrera ett nytt konto
-	 * En metod för att hämta data om användaren
-	 * En metod för att hämta användarens lista av aktiviteter
-	 * En metod för att hämta data om en specifik aktivitet
-	 * En metod för att lägga till en ny aktivitet
-	 * En metod för att ta bort en aktivitet
-	 * En metod för att byta namn på en aktivitet
-	 * En metod för att logga ut
+	 * A method for logging in
+	 * A method for registering a new account
+	 * A method to get data about the logged in user
+	 * A method to get the list of the user's activities
+	 * A method to get data about a specific activity
+	 * A method to add a new activiity
+	 * A method to remove a chosen activity
+	 * A method to change the name of an activity
+	 * A method to log out
 	 * 
-	 * Att göra: Skapa ett skelett för metoderna och bestäm vad de behöver som parametrar (från front-end)
-	 * och vad de returnerar (från back-end).
-	 * När vi har detta bestämt är det lätt att dela upp arbetet.
+	 * To do: Create a skeleton of the controller's methods and decide what parameters they should take (from the front-end)
+	 * and what they return (from the back-end).
+	 * When this is done it will be easy to divide the project.
 	 */
 	
 	
 	
 	
 	public static void main(String[] args) {
-		// Ska vi ha main i controller eller i front-end?
+		// Should we have main in the controller or in the front-end?
 
 	}
 
