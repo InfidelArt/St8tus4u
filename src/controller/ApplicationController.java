@@ -7,6 +7,9 @@ import javax.security.auth.login.FailedLoginException;
 import session.SessionHandler;
 import user.User;
 
+/**
+ * @author Jesper Johansson, Nikolas Mannai
+ */
 public class ApplicationController implements ApplicationControllerInterface {
 	
 	/*
@@ -126,8 +129,10 @@ public class ApplicationController implements ApplicationControllerInterface {
 
 	@Override
 	public boolean isLoggedIn() {
-		// TODO Auto-generated method stub
-		return false;
+		if (sessionHandler.getLoggedInUser() == null)
+			return false;
+		else
+			return true;
 	}
 
 	@Override
