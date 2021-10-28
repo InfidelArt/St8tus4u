@@ -2,6 +2,11 @@ package controller;
 
 import java.util.HashMap;
 
+import javax.security.auth.login.FailedLoginException;
+
+import session.SessionHandler;
+import user.User;
+
 public class ApplicationController implements ApplicationControllerInterface {
 	
 	/*
@@ -22,6 +27,11 @@ public class ApplicationController implements ApplicationControllerInterface {
 	 * When this is done it will be easy to divide the project.
 	 */
 	
+	SessionHandler sessionHandler;
+	
+	public ApplicationController() {
+		sessionHandler = new SessionHandler();
+	}
 	
 	
 	public static void main(String[] args) {
@@ -29,9 +39,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public boolean logIn(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public void logIn(String username, String password) throws FailedLoginException {		
+		sessionHandler.logIn(username, password);		
 	}
 
 	@Override
@@ -42,8 +51,11 @@ public class ApplicationController implements ApplicationControllerInterface {
 
 	@Override
 	public String[] getUserData() {
-		// TODO Auto-generated method stub
-		return null;
+		User user = sessionHandler.getLoggedInUser();
+		String [] returnArray = {user.getUsername(), null, null, null, null, null, user.getGender().name().toLowerCase()};
+		
+		
+		return returnArray;
 	}
 
 	@Override

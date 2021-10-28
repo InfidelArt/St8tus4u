@@ -2,6 +2,8 @@ package controller;
 
 import java.util.HashMap;
 
+import javax.security.auth.login.FailedLoginException;
+
 /*
  * What must the controller be able to do?
  * 
@@ -27,9 +29,9 @@ public interface ApplicationControllerInterface {
 	 * Log in to an account.
 	 * @param username
 	 * @param password
-	 * @return true if log in was successful, false if not.
+	 * @throws FailedLoginException 
 	 */
-	public boolean logIn(String username, String password); 
+	public void logIn(String username, String password) throws FailedLoginException; 
 	
 	/**
 	 * Creates a new account and adds it to the database.
@@ -43,7 +45,7 @@ public interface ApplicationControllerInterface {
 	/**
 	 * Gets info about a user
 	 * @return An array with user data. It will have the following structure:
-	 * [Name, Weight, Length, Age, MaxHeartRate, Gender]
+	 * [Username, Name, Weight, Length, Age, MaxHeartRate, Gender]
 	 */
 	public String[] getUserData();
 	
