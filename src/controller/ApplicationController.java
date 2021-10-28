@@ -1,10 +1,12 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 
 import javax.security.auth.login.FailedLoginException;
 
 import session.SessionHandler;
+import user.Genders;
 import user.User;
 
 /**
@@ -47,9 +49,17 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public boolean registerNewAccount(String username, String password, String gender) {
-		// TODO Auto-generated method stub
-		return false;
+	public void registerNewAccount(String username, String password, String gender) throws InputMismatchException {
+		Genders userGender = null;
+		if(gender.toLowerCase().equals("male")) {
+			userGender = Genders.MALE;
+		} else if (gender.toLowerCase().equals("female")) {
+			userGender = Genders.FEMALE;
+		} else {
+			throw new InputMismatchException("Invalid gender input.");
+		}	
+		sessionHandler.registerNewUser(username, password, userGender);
+		
 	}
 
 	@Override

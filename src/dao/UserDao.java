@@ -85,8 +85,16 @@ public class UserDao implements DaoInterface<User> {
 	}
 
 	@Override
-	public void save(User user) {
+	public void save(User user) throws RuntimeException {
+		try {
+			dbConnectionManager.excecuteQuery("INSERT INTO users(username) VALUES ('" + user.getUsername() +"');");
+			dbConnectionManager.excecuteQuery("INSERT INTO user_data(user_id, password, gender)"
+											+ "VALUES ((SELECT user_id FROM users WHERE username='"+ user.getUsername() + "'), " + user.getPassword() + ", " + user.getGender().name().toLowerCase() + ");");
 		
+		} catch(SQLException e) {
+			System.out.print(e.getMessage());
+			throw new RuntimeException("Failed to connect to the database");
+		}
 		
 	}
 

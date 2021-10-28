@@ -21,6 +21,8 @@ public class TestMain {
 			e.printStackTrace();
 		}
 		System.out.println(Arrays.toString(controller.getUserData()));
+		
+		controller.registerNewAccount("TestUser3", "test321", "male");
 	}
 
 }

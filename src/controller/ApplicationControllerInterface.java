@@ -38,9 +38,8 @@ public interface ApplicationControllerInterface {
 	 * @param username
 	 * @param password
 	 * @param gender Must be either "male" or "female", otherwise it will throw an error
-	 * @return true if account creation was successful, false if not.
 	 */
-	public boolean registerNewAccount(String username, String password, String gender);
+	public void registerNewAccount(String username, String password, String gender);
 	
 	/**
 	 * Gets info about a user

@@ -1,8 +1,11 @@
 package session;
 
+import java.util.InputMismatchException;
+
 import javax.security.auth.login.FailedLoginException;
 
 import dao.UserDao;
+import user.Genders;
 import user.User;
 
 public class SessionHandler {
@@ -32,8 +35,16 @@ public class SessionHandler {
 	public User getLoggedInUser() {
 		return this.loggedInUser;
 	}
-	public void registerNewUser(String username, String passsword, String gender) {
-		
+	public void registerNewUser(String username, String password, Genders gender) throws InputMismatchException{
+		if(username.length() > 24) {
+			throw new InputMismatchException("Username is too long. Max length is 24 characters.");
+		} else if (password.length() > 24) {
+			throw new InputMismatchException("Password is too long. Max length is 24 characters.");
+		} else {
+			User newUser = new User(username, password, gender);
+			userDao.save(newUser);
+			System.out.println("Successfully registered new user " + newUser.getUsername() + ".");
+		}		
 	}
-	
+
 }

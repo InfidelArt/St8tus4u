@@ -40,7 +40,7 @@ public class User implements UserInterface {
 		}
 		
 	}
-	private String getPassword() {
+	public String getPassword() {
 		return this.password;
 	}
 	@Override
