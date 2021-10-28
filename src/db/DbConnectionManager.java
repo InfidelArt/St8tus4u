@@ -1,5 +1,6 @@
 package db;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 /**
+ * Code for creating a connection to the database, available through the platform for our university class.
+ * 
  * DbConnectionManager is a Singleton object that manages the
  * connection to the database.
  * All transactions between DAO and the DB is performed by
