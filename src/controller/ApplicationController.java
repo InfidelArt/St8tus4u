@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 
 import javax.security.auth.login.FailedLoginException;
 
+import gui.LoginFrame;
+import gui.SignUpDialogueBox;
 import session.SessionHandler;
 import user.Genders;
 import user.User;
@@ -40,7 +42,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 	
 	
 	public static void main(String[] args) {
-		// Should we have main in the controller or in the front-end?
+		new LoginFrame().setVisible(true);
+		new SignUpDialogueBox().setVisible(true);
 	}
 
 	@Override
