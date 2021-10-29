@@ -38,7 +38,10 @@ public class StyleComponents {
 	}
 	
 	static JLabel styleDefaultLabel(JLabel lbl) {
-		
+		lbl.setFont(textFont);
+		lbl.setBackground(primaryColor);
+		lbl.setHorizontalAlignment(JTextField.LEFT);
+		lbl.setForeground(secondaryColor);
 		return lbl;
 	}
 	

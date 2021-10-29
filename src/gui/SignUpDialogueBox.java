@@ -38,11 +38,12 @@ public class SignUpDialogueBox extends JFrame {
 		txtNickname = new JTextField("Nickname");
 		txtWeight = new JTextField("Weight");
 		txtLength = new JTextField("Length");
-		lblGender = new JLabel();
+		lblGender = new JLabel("Gender");
 		txtAge = new JTextField("Age");
 		cboxGenderPicker = new JComboBox<>();
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		StyleComponents.styleDefaultLabel(lblGender);
 		StyleComponents.styleJPanel(signUpPanel);
 		StyleComponents.styleBottomLabel(lblBottom);
 		StyleComponents.styleDefaultButton(btnCreateAcc);
