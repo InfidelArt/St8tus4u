@@ -1,9 +1,6 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
 
-import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,18 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.MatteBorder;
+
 
 public class LoginFrame extends JFrame {
-	private Color primaryColor = new Color(50, 66, 161);
-	private Color secondaryColor = new Color(246, 249, 239);
-	private Font textFont = new Font("Verdana", 1, 14);
-	private Font titleFont = new Font("Verdana", 1, 32);
-	private MatteBorder txtFieldBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, secondaryColor);
-	private Border buttonBorder = BorderFactory.createLineBorder(secondaryColor, 2);
-
 	private JButton btnSignUp;
 	private JButton btnSignIn;
 	private JLabel lblTitle;
@@ -38,54 +26,22 @@ public class LoginFrame extends JFrame {
 	private void initComponents() {
 		this.setTitle("St8tus4U");
 		loginPanel = new JPanel();
-		txtUsername = new JTextField();
-		txtPassword = new JTextField();
-		btnSignUp = new JButton();
-		btnSignIn = new JButton();
-		lblTitle = new JLabel();
+		txtUsername = new JTextField("Username");
+		txtPassword = new JTextField("Password");
+		btnSignUp = new JButton("Sign Up");
+		btnSignIn = new JButton("Sign In");
+		lblTitle = new JLabel("ST8TUS4U");
 		lblBottom = new JLabel();
-
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBackground(primaryColor);
-
-		loginPanel.setBackground(primaryColor);
-
-		txtUsername.setBackground(primaryColor);
-		txtUsername.setFont(textFont);
-		txtUsername.setForeground(secondaryColor);
-		txtUsername.setHorizontalAlignment(JTextField.LEFT);
-		txtUsername.setText("Username");
-		txtUsername.setBorder(txtFieldBorder);
-
-		txtPassword.setBackground(primaryColor);
-		txtPassword.setFont(textFont);
-		txtPassword.setForeground(secondaryColor);
-		txtPassword.setHorizontalAlignment(JTextField.LEFT);
-		txtPassword.setText("Password");
-		txtPassword.setBorder(txtFieldBorder);
-
-		btnSignUp.setBackground(primaryColor);
-		btnSignUp.setFont(textFont);
-		btnSignUp.setForeground(secondaryColor);
-		btnSignUp.setText("Sign Up");
-		btnSignUp.setBorder(buttonBorder);
-
-		btnSignIn.setBackground(primaryColor);
-		btnSignIn.setFont(textFont);
-		btnSignIn.setForeground(secondaryColor);
-		btnSignIn.setText("Sign in");
-		btnSignIn.setBorder(buttonBorder);
-
-		lblTitle.setBackground(primaryColor);
-		lblTitle.setFont(titleFont);
-		lblTitle.setForeground(secondaryColor);
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setText("ST8TUS4U");
-
-		lblBottom.setBackground(secondaryColor);
-		lblBottom.setOpaque(true); // Sets opacity to 100%, do not change or delete. Since label is empty, it won't
-									// be visible otherwise.
-		// For GroupLayout: Related = small gap, Unrelated = medium gap, indent = big fucking gap.
+		StyleComponents.styleJPanel(loginPanel);
+		StyleComponents.styleDefaultTextBox(txtUsername);
+		StyleComponents.styleDefaultTextBox(txtPassword);
+		StyleComponents.styleDefaultButton(btnSignUp);
+		StyleComponents.styleDefaultButton(btnSignIn);
+		StyleComponents.styleTitleLabel(lblTitle);
+		StyleComponents.styleBottomLabel(lblBottom);
+		
+		// For reference: Related = small gap, Unrelated = medium gap, indent = big fucking gap.
 		GroupLayout loginPanelLayout = new GroupLayout(loginPanel); // GroupLayout has to be declared here, otherwise it
 																	// doesn't show up???? O___O
 		loginPanel.setLayout(loginPanelLayout);
