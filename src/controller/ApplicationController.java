@@ -8,7 +8,6 @@ import javax.security.auth.login.FailedLoginException;
 import gui.LoginFrame;
 import gui.SignUpDialogueBox;
 import session.SessionHandler;
-import user.Genders;
 import user.User;
 
 /**
@@ -52,23 +51,16 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public void registerNewAccount(String username, String password, String gender) throws InputMismatchException {
-		Genders userGender = null;
-		if(gender.toLowerCase().equals("male")) {
-			userGender = Genders.MALE;
-		} else if (gender.toLowerCase().equals("female")) {
-			userGender = Genders.FEMALE;
-		} else {
-			throw new InputMismatchException("Invalid gender input.");
-		}	
-		sessionHandler.registerNewUser(username, password, userGender);
+	public void registerNewAccount(String username, String password, String gender) throws InputMismatchException {		
+	
+		sessionHandler.registerNewUser(username, password, gender);
 		
 	}
 
 	@Override
 	public String[] getUserData() {
 		User user = sessionHandler.getLoggedInUser();
-		String [] returnArray = {user.getUsername(), null, null, null, null, null, user.getGender().name().toLowerCase()};
+		String [] returnArray = {user.getUsername(), null, null, null, null, null, user.getGender().toLowerCase()};
 		
 		
 		return returnArray;

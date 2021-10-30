@@ -2,11 +2,11 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import db.DbConnectionManager;
-import user.Genders;
 import user.User;
 
 /**
@@ -22,6 +22,7 @@ public class UserDao implements DaoInterface<User> {
 	
 	@Override
 	public User get(int id) {
+		/*
 		User returnUser = null;
 		try {
 			ResultSet resultSetUserData = dbConnectionManager.excecuteQuery("SELECT user_id, password, gender FROM user_data WHERE user_id="+ id + ";");
@@ -32,26 +33,51 @@ public class UserDao implements DaoInterface<User> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return returnUser;
+		*/
+		return null;
 	}
 	/**
 	 * Gets data about a user by their username, if you don't know their ID.
 	 * @param username
 	 * @return a new User object with the retrieved data from the database
 	 */
-	public User get(String username) {
-		// SELECT id, name, birth_year FROM students WHERE id=
+	public User get(String username) throws InputMismatchException, RuntimeException {
+		
+		try {
+			ResultSet resultSet = dbConnectionManager.excecuteQuery(
+					"SELECT users.user_id, user_data.password, user_data.gender"
+				  + "FROM users"
+				  + "INNER JOIN user_data ON users.user_id=user_data.user_id"
+				  + "WHERE username='" + username + "';"
+					);
+			
+			if (resultSet.next()) {
+				User retrievedUser = new User(resultSet.getInt(1), username, resultSet.getString(2), resultSet.getString(3));
+				return retrievedUser;
+			} else {
+				throw new InputMismatchException("No such user in the database.");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Failed to retrieve user data.");
+		}
+		
+		
+		/*
+		 * TODO use JOIN instead of making multiple queries to the DB
+		 */
+		
+		/*
 		User returnUser = null;
 		try {
 			ResultSet resultSetUsers = dbConnectionManager.excecuteQuery("SELECT user_id, username FROM users WHERE username='" + username + "';");
 			if( !resultSetUsers.next()) {
-				throw new NoSuchElementException("The student with username " + username + " doesen't exist in database");
+				throw new NoSuchElementException("The user with username " + username + " doesen't exist in database");
 			}
 			else {
 				int userID = resultSetUsers.getInt(1);
 				ResultSet resultSetUserData = dbConnectionManager.excecuteQuery("SELECT user_id, password, gender FROM user_data WHERE user_id="+ userID + ";");
 				if(!resultSetUserData.next()) 
-					throw new NoSuchElementException("The student with id " + userID + "doesn't exist in database");				
+					throw new NoSuchElementException("The user with id " + userID + "doesn't exist in database");				
 				else				
 					returnUser = new User(username, resultSetUserData.getString(2), getGender(resultSetUserData.getString(3)));
 			}
@@ -62,22 +88,9 @@ public class UserDao implements DaoInterface<User> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
-		return returnUser;
+		*/
 	}
 	
-	private Genders getGender(String column) {
-		Genders userGender = null;
-		if(column.equals("male")) {
-			userGender = Genders.MALE;
-		} else if (column.equals("female")) {
-			userGender = Genders.FEMALE;
-		} else {
-			throw new RuntimeException("No such gender.");
-		}
-		
-		return userGender;
-	}
 	@Override
 	public List getAll() {
 		// TODO Auto-generated method stub
@@ -86,13 +99,20 @@ public class UserDao implements DaoInterface<User> {
 
 	@Override
 	public void save(User user) throws RuntimeException {
-		try {
-			dbConnectionManager.excecuteQuery("INSERT INTO users(username) VALUES ('" + user.getUsername() +"');");
-			dbConnectionManager.excecuteQuery("INSERT INTO user_data(user_id, password, gender)"
-											+ "VALUES ((SELECT user_id FROM users WHERE username='"+ user.getUsername() + "'), " + user.getPassword() + ", " + user.getGender().name().toLowerCase() + ");");
 		
+		/*
+		 * TODO Use the PreparedStatement class and sql TRANSACTION to group everything into one call.
+		 * https://stackoverflow.com/questions/175066/sql-server-is-it-possible-to-insert-into-two-tables-at-the-same-time
+		 */
+		
+		try {
+			dbConnectionManager.excecuteQuery("INSERT INTO users(username) VALUES ('TestUser8');");
+			System.out.println("Success1");
+			dbConnectionManager.excecuteQuery("INSERT INTO user_data(user_id, password, gender) "
+											+ "VALUES ((select user_id from users where username='TestUser8'), 'test222', 'male');");
 		} catch(SQLException e) {
 			System.out.print(e.getMessage());
+			e.printStackTrace();
 			throw new RuntimeException("Failed to connect to the database");
 		}
 		

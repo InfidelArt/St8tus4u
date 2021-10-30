@@ -53,13 +53,11 @@ public class DbConnectionManager {
 	 * It is private because all DB specific is contained within this class.	
 	 * @return An instance of type java.sql.Connection
 	 */
-	private Connection getConnection() {
-        try {
-            connection = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
-            System.out.println("Connected to the PostgreSQL server successfully.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+	private Connection getConnection() throws SQLException {
+        
+          connection = DriverManager.getConnection(CONNECTION_URL, USER, PASSWORD);
+          System.out.println("Connected to the PostgreSQL server successfully.");
+        
  
         return connection;
 	}
@@ -70,6 +68,7 @@ public class DbConnectionManager {
 		catch (SQLException e) {
 			System.err.println("Could not create Statement");
 			System.err.println(e.getMessage());
+			//throw new DataRetrievalException("");
 		}
 		return statement;
 	}
@@ -114,23 +113,5 @@ public class DbConnectionManager {
 			System.err.println(e.getMessage());
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

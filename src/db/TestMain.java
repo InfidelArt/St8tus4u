@@ -22,7 +22,7 @@ public class TestMain {
 		}
 		System.out.println(Arrays.toString(controller.getUserData()));
 		
-		controller.registerNewAccount("TestUser3", "test321", "male");
+		controller.registerNewAccount("TestUser5", "test321", "male");
 	}
 
 }

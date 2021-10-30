@@ -13,6 +13,6 @@ public interface UserInterface {
 	 * @return true if the given password matches the user's, false if not.
 	 */
 	boolean verifyPassword(String password);
-	void setGender(Genders gender);
-	Genders getGender();
+	void setGender(String gender);
+	String getGender();
 }
