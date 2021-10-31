@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 
 import javax.security.auth.login.FailedLoginException;
 
@@ -134,4 +135,6 @@ public interface ApplicationControllerInterface {
 	 * Opens Sign Up Window
 	 */
 	void openSignUpWindow();
+
+	void registerNewAccount(String username, char[] password, String gender) throws InputMismatchException;
 }

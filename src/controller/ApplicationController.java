@@ -60,8 +60,13 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public void registerNewAccount(String username, String password, String gender) throws InputMismatchException {		
-	
+	public void registerNewAccount(String username, char[] arrayPassword, String gender) throws InputMismatchException {	
+		StringBuilder sb = new StringBuilder();
+	    for (char subArray : arrayPassword) {
+	        sb.append(subArray);
+	    }
+	    String password = sb.toString();
+		System.out.println("Username: " + username + "\nPassword: "+ password + "\nGender: " + gender + "\nEncrypted Password: " + arrayPassword);
 		sessionHandler.registerNewUser(username, password, gender);
 		
 	}
@@ -166,6 +171,13 @@ public class ApplicationController implements ApplicationControllerInterface {
 		loginFrame.setVisible(false);
 		signUpFrame = new SignUpDialogueBox(controller);
 		signUpFrame.setVisible(true);
+		
+	}
+
+
+	@Override
+	public void registerNewAccount(String username, String password, String gender) {
+		// TODO Auto-generated method stub
 		
 	}
 }

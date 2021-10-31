@@ -7,6 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
@@ -22,12 +23,11 @@ public class SignUpDialogueBox extends JFrame {
 	private JPanel bottomPanel; 
 	private JPanel signUpPanel; 
 	private JTextField txtUsername;
-	private JTextField txtPassword;
+	private JPasswordField txtPassword;
 	private String TXT_USERNAME_STANDARD_TEXT = "Username";
 	private String TXT_PASSWORD_STANDARD_TEXT = "Password";
 	public ApplicationController controller;
-	private String password;
-	
+	private char[] password;
 	public SignUpDialogueBox(ApplicationController controller) {
 		this.controller = controller;
 		initComponents();
@@ -42,12 +42,11 @@ public class SignUpDialogueBox extends JFrame {
 		lblTitle = new JLabel("Fill User Data");
 		lblBottom = new JLabel();
 		txtUsername = new JTextField("Username");
-		txtPassword = new JTextField("Password");
+		txtPassword = new JPasswordField("Password");
 		txtUsername.addMouseListener(new AutoEraseListener(TXT_USERNAME_STANDARD_TEXT, txtUsername));
 		txtPassword.addMouseListener(new AutoEraseListener(TXT_PASSWORD_STANDARD_TEXT, txtPassword));
 		lblGender = new JLabel("Gender");	
 		cboxGenderPicker = new JComboBox<>();
-
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		StyleComponents.styleDefaultLabel(lblGender);
 		StyleComponents.styleJPanel(signUpPanel);
@@ -130,6 +129,6 @@ public class SignUpDialogueBox extends JFrame {
 	}
 
 	private void createAccount() {
-		controller.registerNewAccount(txtUsername.getText(), this.password, cboxGenderPicker.getSelectedItem().toString());
+		controller.registerNewAccount(txtUsername.getText(), txtPassword.getPassword(), cboxGenderPicker.getSelectedItem().toString());
 	}
 }
