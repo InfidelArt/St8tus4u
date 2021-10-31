@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
@@ -79,5 +80,10 @@ public class StyleComponents {
 	static JPanel styleBorderPanel(JPanel panel) {
 		panel.setBorder(panelBorder);
 		return panel;
+	}
+	
+	static JTable styleActivityTable(JTable table) {
+		table.setBackground(secondaryColor);
+		return table;
 	}
 }
