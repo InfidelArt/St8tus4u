@@ -92,6 +92,9 @@ public class User implements UserInterface {
 	 * Checks if the given password for a new User object is valid, for example, that isn't too long or contains whitespaces.
 	 */
 	private boolean checkValidPassword(String password) {
+		if (password==null) {
+			throw new InputMismatchException("No Password was entered.");
+		}
 		if (password.length() > MAX_PASSWORD_LENGTH) 
 			throw new InputMismatchException("Password is too long. A password can be a maximum of " + MAX_PASSWORD_LENGTH + " characters.");
 		if (password.contains(" "))

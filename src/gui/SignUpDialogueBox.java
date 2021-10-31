@@ -26,6 +26,8 @@ public class SignUpDialogueBox extends JFrame {
 	private String TXT_USERNAME_STANDARD_TEXT = "Username";
 	private String TXT_PASSWORD_STANDARD_TEXT = "Password";
 	public ApplicationController controller;
+	private String password;
+	
 	public SignUpDialogueBox(ApplicationController controller) {
 		this.controller = controller;
 		initComponents();
@@ -128,6 +130,6 @@ public class SignUpDialogueBox extends JFrame {
 	}
 
 	private void createAccount() {
-		controller.registerNewAccount(txtUsername.getText(), txtPassword.getText(), cboxGenderPicker.getSelectedItem().toString());
+		controller.registerNewAccount(txtUsername.getText(), this.password, cboxGenderPicker.getSelectedItem().toString());
 	}
 }
