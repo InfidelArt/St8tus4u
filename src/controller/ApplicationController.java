@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 import javax.security.auth.login.FailedLoginException;
 
 import gui.LoginFrame;
+import gui.MainFrame;
 import gui.SignUpDialogueBox;
 import session.SessionHandler;
 import user.User;
@@ -43,6 +44,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public static void main(String[] args) {
 		new LoginFrame().setVisible(true);
 		new SignUpDialogueBox().setVisible(true);
+		new MainFrame().setVisible(true);
 	}
 
 	@Override

@@ -16,10 +16,13 @@ import javax.swing.SwingConstants;
 public class StyleComponents {
 	private static Color primaryColor = new Color(50, 66, 161);
 	private static Color secondaryColor = new Color(246, 249, 239);
+	private static Color tertiaryColor = new Color(255, 86, 161);
 	private static Font textFont = new Font("Verdana", 1, 14);
+	private static Font buttonTextFont = new Font("Verdana", 1, 10);
 	private static Font titleFont = new Font("Verdana", 1, 32);
 	private static MatteBorder txtFieldBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, secondaryColor);
 	private static Border buttonBorder = BorderFactory.createLineBorder(secondaryColor, 2);
+	private static Border panelBorder = BorderFactory.createMatteBorder(5, 0, 0, 0, tertiaryColor);
 	
 	static JButton styleDefaultButton(JButton button) {
 		button.setBackground(primaryColor);
@@ -28,6 +31,15 @@ public class StyleComponents {
 		button.setBorder(buttonBorder);
 		return button;
 	}
+	
+	static JButton styleMainFrameButton(JButton button) {
+		button.setBackground(primaryColor);
+		button.setFont(buttonTextFont);
+		button.setForeground(secondaryColor);
+		button.setBorder(buttonBorder);
+		return button;
+	}
+	
 	static JTextField styleDefaultTextBox(JTextField txtbox) {
 		txtbox.setBackground(primaryColor);
 		txtbox.setFont(textFont);
@@ -61,6 +73,11 @@ public class StyleComponents {
 	
 	static JPanel styleJPanel(JPanel panel) {
 		panel.setBackground(primaryColor);
+		return panel;
+	}
+	
+	static JPanel styleBorderPanel(JPanel panel) {
+		panel.setBorder(panelBorder);
 		return panel;
 	}
 }
