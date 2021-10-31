@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
+import controller.ApplicationController;
+
 
 public class SignUpDialogueBox extends JFrame {
 	private JButton btnCreateAcc;
@@ -19,12 +21,13 @@ public class SignUpDialogueBox extends JFrame {
 	private JLabel lblGender;
 	private JPanel bottomPanel; 
 	private JPanel signUpPanel; 
-	private JTextField txtNickname;
-	private JTextField txtWeight;
-	private JTextField txtLength;
-	private JTextField txtAge;
-
-	public SignUpDialogueBox() {
+	private JTextField txtUsername;
+	private JTextField txtPassword;
+	private String TXT_USERNAME_STANDARD_TEXT = "Username";
+	private String TXT_PASSWORD_STANDARD_TEXT = "Password";
+	public ApplicationController controller;
+	public SignUpDialogueBox(ApplicationController controller) {
+		this.controller = controller;
 		initComponents();
 	}
 
@@ -33,13 +36,14 @@ public class SignUpDialogueBox extends JFrame {
 		bottomPanel = new JPanel();
 		signUpPanel = new JPanel();
 		btnCreateAcc = new JButton("Create Account");
+		btnCreateAcc.addActionListener(e -> createAccount());
 		lblTitle = new JLabel("Fill User Data");
 		lblBottom = new JLabel();
-		txtNickname = new JTextField("Nickname");
-		txtWeight = new JTextField("Weight");
-		txtLength = new JTextField("Length");
-		lblGender = new JLabel("Gender");
-		txtAge = new JTextField("Age");
+		txtUsername = new JTextField("Username");
+		txtPassword = new JTextField("Password");
+		txtUsername.addMouseListener(new AutoEraseListener(TXT_USERNAME_STANDARD_TEXT, txtUsername));
+		txtPassword.addMouseListener(new AutoEraseListener(TXT_PASSWORD_STANDARD_TEXT, txtPassword));
+		lblGender = new JLabel("Gender");	
 		cboxGenderPicker = new JComboBox<>();
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,75 +53,81 @@ public class SignUpDialogueBox extends JFrame {
 		StyleComponents.styleDefaultButton(btnCreateAcc);
 		StyleComponents.styleDefaultLabel(lblTitle);
 		StyleComponents.styleDefaultLabel(lblGender);
-		StyleComponents.styleDefaultTextBox(txtNickname);
-		StyleComponents.styleDefaultTextBox(txtAge);
-		StyleComponents.styleDefaultTextBox(txtLength);
-		StyleComponents.styleDefaultTextBox(txtWeight);
+		StyleComponents.styleDefaultTextBox(txtUsername);
+		StyleComponents.styleDefaultTextBox(txtPassword);
 		StyleComponents.styleTitleLabel(lblTitle);
 		
 		cboxGenderPicker
 				.setModel(new DefaultComboBoxModel<>(new String[] { "Select Your Gender", "Male", "Female", "Other" }));
 
 		
-		GroupLayout mainLayout = new GroupLayout(signUpPanel);
-		signUpPanel.setLayout(mainLayout);
-		mainLayout.setHorizontalGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addComponent(lblBottom, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addGroup(mainLayout.createSequentialGroup().addGap(36, 36, 36).addGroup(mainLayout
-						.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addGroup(mainLayout.createSequentialGroup().addComponent(lblGender).addGap(18, 18, 18)
-								.addComponent(cboxGenderPicker, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addComponent(lblTitle, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 426,
-								Short.MAX_VALUE)
-						.addComponent(txtNickname, GroupLayout.Alignment.TRAILING)
-						.addComponent(btnCreateAcc, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(txtWeight).addComponent(txtLength)
-						.addComponent(txtAge, GroupLayout.Alignment.TRAILING)).addGap(36, 36, 36)));
-		mainLayout
-				.setVerticalGroup(
-						mainLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addGroup(
-										mainLayout.createSequentialGroup().addGap(39, 39, 39).addComponent(lblTitle)
-												.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-												.addComponent(txtNickname, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addGap(18, 18, 18)
-												.addComponent(txtWeight, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addGap(18, 18, 18)
-												.addComponent(txtLength, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addGap(18, 18, 18)
-												.addComponent(txtAge, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addGap(18, 18, 18)
-												.addGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-														.addComponent(lblGender)
-														.addComponent(cboxGenderPicker, GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-												.addGap(18, 18, 18)
-												.addComponent(btnCreateAcc, GroupLayout.PREFERRED_SIZE, 36,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 41,
-														Short.MAX_VALUE)
-												.addComponent(lblBottom, GroupLayout.PREFERRED_SIZE, 43,
-														GroupLayout.PREFERRED_SIZE)));
+		GroupLayout signUpPanelLayout = new GroupLayout(signUpPanel);
+		signUpPanel.setLayout(signUpPanelLayout);
+		signUpPanelLayout.setHorizontalGroup(
+				signUpPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(signUpPanelLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(signUpPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(signUpPanelLayout.createSequentialGroup()
+                        .addComponent(lblGender)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboxGenderPicker, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblTitle, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                    .addComponent(txtUsername, GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCreateAcc, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPassword))
+                .addGap(36, 36, 36))
+            .addGroup(signUpPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(lblBottom, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+        );
+		signUpPanelLayout.setVerticalGroup(
+				signUpPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(signUpPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(lblTitle)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(signUpPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGender)
+                    .addComponent(cboxGenderPicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnCreateAcc, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(119, Short.MAX_VALUE))
+            .addGroup(signUpPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(GroupLayout.Alignment.TRAILING, signUpPanelLayout.createSequentialGroup()
+                    .addGap(0, 250, Short.MAX_VALUE)
+                    .addComponent(lblBottom, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)))
+        );
 
-		GroupLayout bottomLabelLayout = new GroupLayout(bottomPanel);
-		bottomPanel.setLayout(bottomLabelLayout);
-		bottomLabelLayout.setHorizontalGroup(
-				bottomLabelLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(signUpPanel,
-						GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE));
-		bottomLabelLayout.setVerticalGroup(bottomLabelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addComponent(signUpPanel, GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE));
+        GroupLayout jPanel1Layout = new GroupLayout(bottomPanel);
+        bottomPanel.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(signUpPanel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(signUpPanel, GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+        );
 
-		GroupLayout layout = new GroupLayout(getContentPane()); // Creates actual components in the panel
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(bottomPanel,
-				GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(bottomPanel,
-				GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(bottomPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(bottomPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
-		pack();
+        pack();
+	}
+
+	private void createAccount() {
+		controller.registerNewAccount(txtUsername.getText(), txtPassword.getText(), cboxGenderPicker.getSelectedItem().toString());
 	}
 }

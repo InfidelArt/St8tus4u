@@ -12,6 +12,8 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
+import controller.ApplicationController;
+
 public class MainFrame extends JFrame {
 
 	private JButton btnRemove;
@@ -27,8 +29,9 @@ public class MainFrame extends JFrame {
 	private JPanel borderPanel;
 	private JScrollPane scrollPane;
 	private JTable activityTable;
-
-	public MainFrame() {
+	private ApplicationController controller;
+	public MainFrame(ApplicationController controller) {
+		this.controller = controller;
 		initComponents();
 	}
 
@@ -39,11 +42,16 @@ public class MainFrame extends JFrame {
 		cbxActivities = new JComboBox<>();
 		lblCurrentActivity = new JLabel();
 		btnRemove = new JButton("Remove");
+		btnRemove.addActionListener(e -> removeActivity());
 		btnEdit = new JButton("Edit");
+		btnEdit.addActionListener(e -> editActivity());
 		btnEdit.setToolTipText("Saves the changes you've made in the activity tables");
 		btnGraph = new JButton("Show Graph");
+		btnGraph.addActionListener(e -> showGraph());
 		btnSelect = new JButton("Select");
+		btnSelect.addActionListener(e -> selectActivity());
 		btnUserSettings = new JButton("User Settings");
+		btnUserSettings.addActionListener(e -> openUserSettingsWindow());
 		btnImport = new JButton("Import Activity");
 		borderPanel = new JPanel();
 		scrollPane = new JScrollPane();
@@ -149,5 +157,25 @@ public class MainFrame extends JFrame {
 				GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE));
 
 		pack();
+	}
+
+	private void openUserSettingsWindow() {
+		// TODO Auto-generated method stub
+	}
+
+	private void selectActivity() {
+		// TODO Auto-generated method stub
+	}
+
+	private void showGraph() {
+		// TODO Auto-generated method stub
+	}
+
+	private void editActivity() {
+		// TODO Auto-generated method stub
+	}
+
+	private void removeActivity() {
+		// TODO Auto-generated method stub
 	}
 }

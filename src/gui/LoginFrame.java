@@ -1,6 +1,7 @@
 package gui;
 
 
+import javax.security.auth.login.FailedLoginException;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -8,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+
+import controller.ApplicationController;
 
 
 public class LoginFrame extends JFrame {
@@ -17,21 +20,31 @@ public class LoginFrame extends JFrame {
 	private JLabel lblBottom;
 	private JPanel loginPanel;
 	private JTextField txtPassword;
+	private String TXT_USERNAME_STANDARD_TEXT = "Username";
+	private String TXT_PASSWORD_STANDARD_TEXT = "Password";
 	private JTextField txtUsername;
-
-	public LoginFrame() {
+	private ApplicationController controller;
+	private String username;
+	private String password;
+	
+	public LoginFrame(ApplicationController controller) {
+		this.controller = controller;
 		initComponents();
 	}
 
 	private void initComponents() {
 		this.setTitle("St8tus4U");
 		loginPanel = new JPanel();
-		txtUsername = new JTextField("Username");
-		txtPassword = new JTextField("Password");
+		txtUsername = new JTextField(TXT_USERNAME_STANDARD_TEXT);
+		txtPassword = new JTextField(TXT_PASSWORD_STANDARD_TEXT);
+		txtUsername.addMouseListener(new AutoEraseListener(TXT_USERNAME_STANDARD_TEXT, txtUsername));
+		txtPassword.addMouseListener(new AutoEraseListener(TXT_PASSWORD_STANDARD_TEXT, txtPassword));
 		btnSignUp = new JButton("Sign Up");
 		btnSignIn = new JButton("Sign In");
 		lblTitle = new JLabel("ST8TUS4U");
 		lblBottom = new JLabel();
+		btnSignUp.addActionListener(e -> loginFrameSignUp());
+		btnSignIn.addActionListener(e -> loginFrameSignIn());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		StyleComponents.styleJPanel(loginPanel);
 		StyleComponents.styleDefaultTextBox(txtUsername);
@@ -41,9 +54,9 @@ public class LoginFrame extends JFrame {
 		StyleComponents.styleTitleLabel(lblTitle);
 		StyleComponents.styleBottomLabel(lblBottom);
 		
-		// For reference: Related = small gap, Unrelated = medium gap, indent = big fucking gap.
+		// For reference: Related = small gap, Unrelated = medium gap, indent = big gap.
 		GroupLayout loginPanelLayout = new GroupLayout(loginPanel); // GroupLayout has to be declared here, otherwise it
-																	// doesn't show up???? O___O
+																	// doesn't show up???? 
 		loginPanel.setLayout(loginPanelLayout);
 		loginPanelLayout.setHorizontalGroup(loginPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 				.addComponent(lblBottom, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -82,6 +95,20 @@ public class LoginFrame extends JFrame {
 		bottomLayout.setVerticalGroup(bottomLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 				.addComponent(loginPanel, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE));
 
-		pack(); // I love this method.
+		pack();
+	}
+
+	private void loginFrameSignIn() {
+		username = this.txtUsername.getText();
+		password = this.txtPassword.getText();
+		this.setVisible(false);
+		try {
+			controller.logIn(username, password);
+		} catch (FailedLoginException e) {
+		}
+	}
+
+	private void loginFrameSignUp() {
+		controller.openSignUpWindow();
 	}
 }

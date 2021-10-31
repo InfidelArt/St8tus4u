@@ -35,21 +35,28 @@ public class ApplicationController implements ApplicationControllerInterface {
 	 */
 	
 	SessionHandler sessionHandler;
+	public ApplicationController controller;
+	public LoginFrame loginFrame;
+	public SignUpDialogueBox signUpFrame;
+	public MainFrame mainFrame;
+	
 	
 	public ApplicationController() {
+		controller = this;
 		sessionHandler = new SessionHandler();
+		loginFrame = new LoginFrame(controller);
+		loginFrame.setVisible(true);
 	}
 	
 	
 	public static void main(String[] args) {
-		new LoginFrame().setVisible(true);
-		new SignUpDialogueBox().setVisible(true);
-		new MainFrame().setVisible(true);
+		new ApplicationController();
 	}
 
 	@Override
 	public void logIn(String username, String password) throws FailedLoginException {		
 		sessionHandler.logIn(username, password);		
+		new MainFrame(controller).setVisible(true);
 	}
 
 	@Override
@@ -148,4 +155,17 @@ public class ApplicationController implements ApplicationControllerInterface {
 		return false;
 	}
 
+	@Override
+	public void signUp() {
+		// TODO
+		
+	}
+
+	@Override
+	public void openSignUpWindow() {
+		loginFrame.setVisible(false);
+		signUpFrame = new SignUpDialogueBox(controller);
+		signUpFrame.setVisible(true);
+		
+	}
 }

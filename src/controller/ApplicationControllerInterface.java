@@ -125,4 +125,13 @@ public interface ApplicationControllerInterface {
 	 * @return true if the operation was successful, false if not.
 	 */
 	public boolean logOut();
+	/**
+	 * Creates a user Account
+	 * @return true is operation was successful, false if not
+	 */
+	void signUp();
+	/**
+	 * Opens Sign Up Window
+	 */
+	void openSignUpWindow();
 }
