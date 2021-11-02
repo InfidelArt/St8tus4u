@@ -24,8 +24,8 @@ public class SignUpDialogueBox extends JFrame {
 	private JPanel signUpPanel; 
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;
-	private String TXT_USERNAME_STANDARD_TEXT = "Username";
-	private String TXT_PASSWORD_STANDARD_TEXT = "Password";
+	private final String TXT_USERNAME_STANDARD_TEXT = "Username";
+	private final String TXT_PASSWORD_STANDARD_TEXT = "Password";
 	public ApplicationController controller;
 	private char[] password;
 	public SignUpDialogueBox(ApplicationController controller) {

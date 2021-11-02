@@ -8,6 +8,7 @@ import javax.security.auth.login.FailedLoginException;
 import gui.LoginFrame;
 import gui.MainFrame;
 import gui.SignUpDialogueBox;
+import gui.UserSettingsFrame;
 import session.SessionHandler;
 import user.User;
 
@@ -39,6 +40,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public LoginFrame loginFrame;
 	public SignUpDialogueBox signUpFrame;
 	public MainFrame mainFrame;
+	public UserSettingsFrame userSettings;
 	
 	
 	public ApplicationController() {
@@ -55,8 +57,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 
 	@Override
 	public void logIn(String username, String password) throws FailedLoginException {		
-		sessionHandler.logIn(username, password);		
 		new MainFrame(controller).setVisible(true);
+		sessionHandler.logIn(username, password);		
 	}
 
 	@Override
@@ -179,5 +181,11 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public void registerNewAccount(String username, String password, String gender) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public void openUserSettings() {
+		userSettings = new UserSettingsFrame(controller);
+		userSettings.setVisible(true);
 	}
 }

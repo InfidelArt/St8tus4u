@@ -21,8 +21,8 @@ public class LoginFrame extends JFrame {
 	private JLabel lblBottom;
 	private JPanel loginPanel;
 	private JPasswordField txtPassword;
-	private String TXT_USERNAME_STANDARD_TEXT = "Username";
-	private String TXT_PASSWORD_STANDARD_TEXT = "Password";
+	private final String TXT_USERNAME_STANDARD_TEXT = "Username";
+	private final String TXT_PASSWORD_STANDARD_TEXT = "Password";
 	private JTextField txtUsername;
 	private ApplicationController controller;
 	private String username;

@@ -23,6 +23,7 @@ public class AutoEraseListener extends MouseInputAdapter {
 		this.sourceText = source;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void mouseClicked(MouseEvent e) {
 		if (sourceText != null) {
 			if (sourceText.getText().equals(standardMessage)) {

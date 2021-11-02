@@ -15,9 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class StyleComponents {
-	private static Color primaryColor = new Color(50, 66, 161);
+	private static Color primaryColor = new Color(240, 120, 0);
 	private static Color secondaryColor = new Color(246, 249, 239);
-	private static Color tertiaryColor = new Color(255, 86, 161);
+	private static Color tertiaryColor = new Color(50, 66, 161);
 	private static Font textFont = new Font("Verdana", 1, 14);
 	private static Font buttonTextFont = new Font("Verdana", 1, 10);
 	private static Font titleFont = new Font("Verdana", 1, 32);
