@@ -49,19 +49,20 @@ public class MainFrame extends JFrame {
 	private JLabel lblUserData;
 	private String userData;
 
-	public MainFrame(ApplicationController controller) {
+	public MainFrame(ApplicationController controller) throws IOException, InvalidTimeException, InvalidDateException {
 		this.controller = controller;
 		initComponents();
 	}
 
-	private void initComponents() {
+	private void initComponents() throws IOException, InvalidTimeException, InvalidDateException {
 		topPanel = new JPanel();
 		lblUserData = new JLabel();
 		StyleComponents.styleDefaultLabel(lblUserData);
-		userData = "Username"+ "name"
-				+ "Weight"+  "Length"+ "age"
-				+"Max Heartrate" + "Gender";
-		// userData = controller.getUserData()[0] +" "+controller.getUserData()[1] +" "+controller.getUserData()[2] +" "+controller.getUserData()[3] +" "+controller.getUserData()[4] +" "+controller.getUserData()[5] +" "+controller.getUserData()[6];
+		userData = "Username" + "name" + "Weight" + "Length" + "age" + "Max Heartrate" + "Gender";
+		// userData = controller.getUserData()[0] +" "+controller.getUserData()[1] +"
+		// "+controller.getUserData()[2] +" "+controller.getUserData()[3] +"
+		// "+controller.getUserData()[4] +" "+controller.getUserData()[5] +"
+		// "+controller.getUserData()[6];
 		upperPanel = new JPanel();
 		lblTitle = new JLabel(userData);
 		cbxActivities = new JComboBox<>();
@@ -73,7 +74,14 @@ public class MainFrame extends JFrame {
 		btnEdit.addActionListener(e -> editActivity());
 		btnEdit.setToolTipText("Saves the changes you've made in the activity tables");
 		btnGraph = new JButton("Show Graph");
-		btnGraph.addActionListener(e -> showGraph());
+		btnGraph.addActionListener(e -> {
+			try {
+				showGraph();
+			} catch (IOException | InvalidTimeException | InvalidDateException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		});
 		btnSelect = new JButton("Select");
 		btnSelect.addActionListener(e -> selectActivity());
 		btnUserSettings = new JButton("User Settings");
@@ -112,7 +120,7 @@ public class MainFrame extends JFrame {
 		StyleComponents.styleMainFrameButton(btnImport);
 		StyleComponents.styleJPanel(borderPanel);
 		StyleComponents.styleBorderPanel(borderPanel);
-		currentActivityData = new String[][] { { null } };
+		currentActivityData = controller.getActivityData();
 		activityTable.setModel(new DefaultTableModel( // A lot of nulls to check if the scroll option works, will delete
 														// later,
 				// Otherwise may be useful when presenting to explain what happens when the
@@ -216,7 +224,7 @@ public class MainFrame extends JFrame {
 
 	}
 
-	private void showGraph() {
+	private void showGraph() throws IOException, InvalidTimeException, InvalidDateException {
 		controller.showGraph();
 	}
 
@@ -225,7 +233,7 @@ public class MainFrame extends JFrame {
 
 	}
 
-	private void removeActivity() { //Now it takes in activity name, to change in the future
+	private void removeActivity() { // Now it takes in activity name, to change in the future
 		controller.removeActivity(cbxActivities.getItemAt(cbxActivities.getSelectedIndex()));
 	}
 }

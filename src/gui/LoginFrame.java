@@ -2,6 +2,7 @@ package gui;
 
 
 import java.awt.BorderLayout;
+import java.io.IOException;
 
 import javax.security.auth.login.FailedLoginException;
 import javax.swing.GroupLayout;
@@ -14,6 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
 import controller.ApplicationController;
+import date.InvalidDateException;
+import time.InvalidTimeException;
 
 
 public class LoginFrame extends JFrame {
@@ -30,12 +33,12 @@ public class LoginFrame extends JFrame {
 	private String username;
 	private String password;
 	
-	public LoginFrame(ApplicationController controller) {
+	public LoginFrame(ApplicationController controller) throws IOException, InvalidTimeException, InvalidDateException {
 		this.controller = controller;
 		initComponents();
 	}
 
-	private void initComponents() {
+	private void initComponents() throws IOException, InvalidTimeException, InvalidDateException {
 		this.setTitle("St8tus4U");
 		loginPanel = new JPanel();
 		txtUsername = new JTextField(TXT_USERNAME_STANDARD_TEXT);

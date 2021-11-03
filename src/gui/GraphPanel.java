@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,6 +17,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import date.InvalidDateException;
+import time.InvalidTimeException;
 
 public class GraphPanel extends JPanel {
 	private int width = 800;
@@ -34,7 +38,7 @@ public class GraphPanel extends JPanel {
 	private List<Double> seconds;
 	private double average;
 	
-	public GraphPanel(List<Double> scores, Color color, String title) {
+	public GraphPanel(List<Double> scores, Color color, String title) throws IOException, InvalidTimeException, InvalidDateException {
 		this.lineColor = color;
 
 		this.lblTitle = new JLabel(title);
