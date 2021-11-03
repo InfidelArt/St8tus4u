@@ -53,6 +53,7 @@ public class MainFrame extends JFrame {
 		btnUserSettings = new JButton("User Settings");
 		btnUserSettings.addActionListener(e -> openUserSettings());
 		btnImport = new JButton("Import Activity");
+		btnImport.addActionListener(e -> importActivity());
 		borderPanel = new JPanel();
 		scrollPane = new JScrollPane();
 		activityTable = new JTable();
@@ -159,6 +160,11 @@ public class MainFrame extends JFrame {
 		pack();
 	}
 
+	private Object importActivity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private void openUserSettings() {
 		controller.openUserSettings();
 	}
@@ -168,7 +174,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void showGraph() {
-		// TODO Auto-generated method stub
+		controller.showGraph();
 	}
 
 	private void editActivity() {

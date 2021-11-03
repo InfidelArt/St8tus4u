@@ -8,6 +8,7 @@ import java.util.List;
 import javax.security.auth.login.FailedLoginException;
 
 import db.DataEntryException;
+import gui.GraphFrame;
 import gui.LoginFrame;
 import gui.MainFrame;
 import gui.SignUpDialogueBox;
@@ -58,9 +59,9 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public void logIn(String username, String password) throws FailedLoginException {		
+	public void logIn(String username, String password) throws FailedLoginException {	
+		new MainFrame(controller).setVisible(true); //Move this under sessionHandler after you are done
 		sessionHandler.logIn(username, password);	
-		new MainFrame(controller).setVisible(true);
 	}
 
 
@@ -74,9 +75,6 @@ public class ApplicationController implements ApplicationControllerInterface {
 	    String password = sb.toString();
 		System.out.println("Username: " + username + "\nPassword: "+ password + "\nGender: " + gender + "\nEncrypted Password: " + arrayPassword);
 		sessionHandler.registerNewUser(username, password, gender);
-
-		
-		
 	}
 
 	@Override
@@ -131,7 +129,14 @@ public class ApplicationController implements ApplicationControllerInterface {
 		sessionHandler.getLoggedInUser().setAge(age);
 		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
 	}
-	
+	public void setGender(String gender) throws DataEntryException {
+		sessionHandler.getLoggedInUser().setGender(gender);
+		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+	}
+	public void setUsername(String username) throws DataEntryException {
+		sessionHandler.getLoggedInUser().setUsername(username);
+		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+	}
 	@Override
 	public boolean isLoggedIn() {
 		if (sessionHandler.getLoggedInUser() == null)
@@ -178,4 +183,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 		userSettings.setVisible(true);
 	}
 
+	public void showGraph() {
+		GraphFrame graphFrame = new GraphFrame();
+	}
 }

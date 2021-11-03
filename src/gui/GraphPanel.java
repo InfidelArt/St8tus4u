@@ -30,7 +30,8 @@ public class GraphPanel extends JPanel {
 	private List<Double> scores;
 
 	public GraphPanel(List<Double> scores) {
-		this.scores = scores;
+		this.scores =scores;
+
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -144,31 +145,5 @@ public class GraphPanel extends JPanel {
 
 	public List<Double> getScores() {
 		return scores;
-	}
-
-	private static void createAndShowGui() {
-		List<Double> scores = new ArrayList<>();
-		Random random = new Random();
-		int maxDataPoints = 20;
-		int maxScore = 10;
-		for (int i = 0; i < maxDataPoints; i++) {
-			scores.add((double) random.nextDouble() * maxScore);
-		}
-		GraphPanel mainPanel = new GraphPanel(scores);
-		mainPanel.setPreferredSize(new Dimension(800, 600));
-		JFrame frame = new JFrame("DrawGraph");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(mainPanel);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGui();
-			}
-		});
 	}
 }
