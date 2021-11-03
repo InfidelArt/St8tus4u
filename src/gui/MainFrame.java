@@ -160,7 +160,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void openUserSettings() {
-		//controller.openUserSettings();
+		controller.openUserSettings();
 	}
 
 	private void selectActivity() {

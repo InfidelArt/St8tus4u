@@ -11,6 +11,7 @@ import db.DataEntryException;
 import gui.LoginFrame;
 import gui.MainFrame;
 import gui.SignUpDialogueBox;
+import gui.UserSettingsFrame;
 import session.SessionHandler;
 import user.User;
 
@@ -42,6 +43,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public LoginFrame loginFrame;
 	public SignUpDialogueBox signUpFrame;
 	public MainFrame mainFrame;
+	public UserSettingsFrame userSettings;
 	
 	
 	public ApplicationController() {
@@ -61,11 +63,20 @@ public class ApplicationController implements ApplicationControllerInterface {
 		sessionHandler.logIn(username, password);	
 	}
 
+
+
 	@Override
-	public User registerNewAccount(String username, String password, String gender) throws DataEntryException {		
+	public void registerNewAccount(String username, char[] arrayPassword, String gender) throws InputMismatchException, DataEntryException {	
+		StringBuilder sb = new StringBuilder();
+	    for (char subArray : arrayPassword) {
+	        sb.append(subArray);
+	    }
+	    String password = sb.toString();
+		System.out.println("Username: " + username + "\nPassword: "+ password + "\nGender: " + gender + "\nEncrypted Password: " + arrayPassword);
+		sessionHandler.registerNewUser(username, password, gender);
+
 		
-		User newUser = sessionHandler.registerNewUser(username, password, gender);
-		return newUser;
+		
 	}
 
 	@Override
@@ -162,9 +173,15 @@ public class ApplicationController implements ApplicationControllerInterface {
 		
 	}
 
-	@Override
-	public void registerNewAccount(String username, char[] password, String gender) throws InputMismatchException {
-		// TODO Auto-generated method stub
-		
+	public void openUserSettings() {
+		userSettings = new UserSettingsFrame(controller);
+		userSettings.setVisible(true);
 	}
+
+	@Override
+	public User registerNewAccount(String username, String password, String gender) throws DataEntryException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
