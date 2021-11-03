@@ -10,36 +10,41 @@ import javax.swing.JFrame;
 
 import controller.ApplicationController;
 
-public class GraphFrame extends JFrame{	
+public class GraphFrame extends JFrame {
 	Color speedColor = new Color(36, 252, 3, 255);
 	Color distanceColor = new Color(252, 140, 3, 255);
 	Color heartRateColor = new Color(252, 3, 3, 255);
 	Color cadenceColor = new Color(3, 152, 252, 255);
 	private String[][] currentActivity;
 	ApplicationController controller;
+
 	public GraphFrame(ApplicationController controller) {
 		this.controller = controller;
 		initComponents();
 	}
-	
+
 	public void initComponents() {
-		List<Double> scores = new ArrayList<>();
 		currentActivity = controller.getActivityData();
 		List<Double> scoresSpeed = new ArrayList<>();
 		List<Double> scoresDistance = new ArrayList<>();
 		List<Double> scoresHeartRate = new ArrayList<>();
 		List<Double> scoresCadence = new ArrayList<>();
+		List<Double> scoresSeconds = new ArrayList<>();
+		for (int i = 0; i < currentActivity.length; i++) {
+			scoresSeconds.add(Double.parseDouble(currentActivity[i][2]));
+			scoresSpeed.add(Double.parseDouble(currentActivity[i][8]));
+			scoresDistance.add(Double.parseDouble(currentActivity[i][6]));
+			scoresHeartRate.add(Double.parseDouble(currentActivity[i][7]));
+			scoresCadence.add(Double.parseDouble(currentActivity[i][9]));
+		}
 		Random random = new Random();
-		this.setLayout(new GridLayout(2,2));
+		this.setLayout(new GridLayout(2, 2));
 		int maxDataPoints = 20;
 		int maxScore = 10;
-		for (int i = 0; i < maxDataPoints; i++) {
-			scores.add((double) random.nextDouble() * maxScore);
-		}
-		GraphPanel panelSpeed = new GraphPanel(scores, speedColor, "Speed");
-		GraphPanel panelDistance = new GraphPanel(scores, distanceColor, "Distance");
-		GraphPanel panelHeartRate = new GraphPanel(scores, heartRateColor, "HeartRate");
-		GraphPanel panelCadence = new GraphPanel(scores, cadenceColor, "Cadence");
+		GraphPanel panelSpeed = new GraphPanel(scoresSpeed, scoresSeconds, speedColor, "Speed");
+		GraphPanel panelDistance = new GraphPanel(scoresDistance, scoresSeconds, distanceColor, "Distance");
+		GraphPanel panelHeartRate = new GraphPanel(scoresHeartRate, scoresSeconds, heartRateColor, "HeartRate");
+		GraphPanel panelCadence = new GraphPanel(scoresCadence, scoresSeconds, cadenceColor, "Cadence");
 		this.setTitle("Graph");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.add(panelSpeed);

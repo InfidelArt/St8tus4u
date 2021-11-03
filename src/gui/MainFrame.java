@@ -9,11 +9,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -42,9 +40,10 @@ public class MainFrame extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable activityTable;
 	private ApplicationController controller;
-	private String[][] selectedActivity;
+	private String[][] userActivites;
+	private String[][] activityData;
 	private String activityName; 
-
+	private String[] cbxActivityList;
 	public MainFrame(ApplicationController controller) {
 		this.controller = controller;
 		initComponents();
@@ -79,12 +78,16 @@ public class MainFrame extends JFrame {
 		borderPanel = new JPanel();
 		scrollPane = new JScrollPane();
 		activityTable = new JTable();
-
+		/* userActivites = controller.getUserActivities();
+		for(int i = 0; i < userActivites.length; i++) {
+			
+		}*/
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		StyleComponents.styleJPanel(upperPanel);
 		StyleComponents.styleTitleLabel(lblTitle);
-
+		
+		
 		cbxActivities.setModel(new DefaultComboBoxModel<>(new String[] { "Example Acitivity 1", "Example Acitivity 2",
 				"Example Acitivity 3", "Example Acitivity 4" })); // Will be filled with activities from activity list
 																	// later on
@@ -97,23 +100,15 @@ public class MainFrame extends JFrame {
 		StyleComponents.styleMainFrameButton(btnImport);
 		StyleComponents.styleJPanel(borderPanel);
 		StyleComponents.styleBorderPanel(borderPanel);
-		selectedActivity = new String[][] { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
+		activityData = new String [][] {{null}};
 		activityTable.setModel(new DefaultTableModel( // A lot of nulls to check if the scroll option works, will delete
 														// later,
 				// Otherwise may be useful when presenting to explain what happens when the
 				// amount of data exceeds space in the panel
-				selectedActivity,
+				activityData,
 				new String[] { "Time", "Seconds", "Longitude", "Latitude", "Altitude", "Distance", "Heart rate",
 						"Speed", "Cadence" }));
 		scrollPane.setViewportView(activityTable); // Adds scroll option to the table
-
 		GroupLayout borderPanelLayout = new GroupLayout(borderPanel);
 		borderPanel.setLayout(borderPanelLayout);
 		borderPanelLayout.setHorizontalGroup(
@@ -199,8 +194,8 @@ public class MainFrame extends JFrame {
 
 	private void selectActivity() {
 		activityName = cbxActivities.getItemAt(cbxActivities.getSelectedIndex());
-		txtCurrentActivity.addMouseListener(new AutoEraseListener(activityName, txtCurrentActivity));
-		txtCurrentActivity.setText(activityName);
+		txtCurrentActivity.setText("Current Activity: " + activityName);
+		txtCurrentActivity.addMouseListener(new AutoEraseListener(txtCurrentActivity.getText(), txtCurrentActivity));
 		controller.setCurrentActivity(activityName);
 	}
 

@@ -30,9 +30,10 @@ public class GraphPanel extends JPanel {
 	private int pointWidth = 4;
 	private int numberYDivisions = 10;
 	private List<Double> scores;
-
-	public GraphPanel(List<Double> scores, Color color, String title) {
+	private List<Double> seconds;
+	public GraphPanel(List<Double> scores, List<Double> seconds, Color color, String title) {
 		this.lineColor = color;
+		this.seconds = seconds;
 		this.lblTitle = new JLabel(title);
 		this.add(lblTitle);
 		this.scores =scores;
@@ -42,14 +43,13 @@ public class GraphPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//makes lines smooth
 
 		double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (scores.size() - 1); 
 		double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
 
 		List<Point> graphPoints = new ArrayList<>();
 		for (int i = 0; i < scores.size(); i++) {
-			int x1 = (int) (i * xScale + padding + labelPadding);
+			int x1 = (int) (seconds.get(i) + padding + labelPadding);
 			int y1 = (int) ((getMaxScore() - scores.get(i)) * yScale + padding);
 			graphPoints.add(new Point(x1, y1));
 		}

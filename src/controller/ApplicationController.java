@@ -59,7 +59,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 		loginFrame.setVisible(true);
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 			 public void run() {
-				 System.out.print("User logged out successfully");
+				System.out.print("User logged out successfully");
 				logOut();
 			 }
 	 }, "Logout user on close"));	
