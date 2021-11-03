@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,17 +8,27 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import controller.ApplicationController;
+
 public class GraphFrame extends JFrame{	
 	Color speedColor = new Color(36, 252, 3, 255);
 	Color distanceColor = new Color(252, 140, 3, 255);
 	Color heartRateColor = new Color(252, 3, 3, 255);
 	Color cadenceColor = new Color(3, 152, 252, 255);
-	public GraphFrame() {
+	private String[][] currentActivity;
+	ApplicationController controller;
+	public GraphFrame(ApplicationController controller) {
+		this.controller = controller;
 		initComponents();
 	}
 	
 	public void initComponents() {
 		List<Double> scores = new ArrayList<>();
+		currentActivity = controller.getActivityData();
+		List<Double> scoresSpeed = new ArrayList<>();
+		List<Double> scoresDistance = new ArrayList<>();
+		List<Double> scoresHeartRate = new ArrayList<>();
+		List<Double> scoresCadence = new ArrayList<>();
 		Random random = new Random();
 		this.setLayout(new GridLayout(2,2));
 		int maxDataPoints = 20;

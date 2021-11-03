@@ -184,10 +184,10 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	public void showGraph() {
-		GraphFrame graphFrame = new GraphFrame();
+		GraphFrame graphFrame = new GraphFrame(controller);
 	}
 
 	public void setCurrentActivity(String activityName) {
-		// TODO
+		// TODO This will take activity name from cbxBox, then it will fill out the table data with chosen activity
 	}
 }
