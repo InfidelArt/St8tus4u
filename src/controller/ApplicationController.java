@@ -111,8 +111,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 	@Override
 	public String[][] getActivityData() throws IOException, InvalidTimeException, InvalidDateException {
 		ArrayList<ActivitySnapshot> list = sessionHandler.importLog("test activity.csv");
-		String[][] returnArray = new String[list.size()][9];
-		for (int i = 0; i < list.size() - 1; i++) {
+		String[][] returnArray = new String[list.size()][8];
+		for (int i = 0; i < list.size(); i++) {
 			returnArray[i] = list.get(i).toArray();
 		}
 		return returnArray;

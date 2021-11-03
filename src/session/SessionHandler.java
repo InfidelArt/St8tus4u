@@ -77,7 +77,7 @@ public class SessionHandler {
 			throws IOException, InvalidTimeException, InvalidDateException {
 
 		ArrayList<ActivitySnapshot> log = new ArrayList<>();
-
+		
 		BufferedReader br = new BufferedReader(new FileReader(pathToCSV));
 		String line;
 		br.readLine();

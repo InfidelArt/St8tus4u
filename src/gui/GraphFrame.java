@@ -16,7 +16,7 @@ import date.InvalidDateException;
 import time.InvalidTimeException;
 
 public class GraphFrame extends JFrame {
-	Color speedColor = new Color(36, 252, 3, 255);
+	Color speedColor = new Color(50, 168, 82);
 	Color distanceColor = new Color(252, 140, 3, 255);
 	Color heartRateColor = new Color(252, 3, 3, 255);
 	Color cadenceColor = new Color(3, 152, 252, 255);
@@ -29,20 +29,18 @@ public class GraphFrame extends JFrame {
 	}
 
 	public void initComponents() throws IOException, InvalidTimeException, InvalidDateException {
+		currentActivity = controller.getActivityData();
 		List<Double> scoresSpeed = new ArrayList<>();
 		List<Double> scoresDistance = new ArrayList<>();
 		List<Double> scoresHeartRate = new ArrayList<>();
 		List<Double> scoresCadence = new ArrayList<>();
-		for (int i = 0; i < controller.getActivityData().length; i++) {
-			scoresSpeed.add(Double.parseDouble(controller.getActivityData()[i][6]));
-			scoresDistance.add(Double.parseDouble(controller.getActivityData()[i][4]));
-			scoresHeartRate.add(Double.parseDouble(controller.getActivityData()[i][5]));
-			scoresCadence.add(Double.parseDouble(controller.getActivityData()[i][7]));
-		}
-		this.setLayout(new BorderLayout());
-		JPanel topPanel = new JPanel();
-		topPanel.setLayout(new GridLayout(2,1));
-		this.add(topPanel, BorderLayout.NORTH);
+		System.out.print(currentActivity.length);
+		for (int i = 0; i < currentActivity.length; i++) {
+			scoresSpeed.add(Double.parseDouble(currentActivity[i][7]));
+			scoresDistance.add(Double.parseDouble(currentActivity[i][5]));
+			scoresHeartRate.add(Double.parseDouble(currentActivity[i][6]));
+			scoresCadence.add(Double.parseDouble(currentActivity[i][8]));
+			}
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(2, 2));
 		this.add(centerPanel, BorderLayout.CENTER);
