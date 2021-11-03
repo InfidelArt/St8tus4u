@@ -34,9 +34,8 @@ public class GraphPanel extends JPanel {
 	private List<Double> seconds;
 	private double average;
 	
-	public GraphPanel(List<Double> scores, List<Double> seconds, Color color, String title) {
+	public GraphPanel(List<Double> scores, Color color, String title) {
 		this.lineColor = color;
-		this.seconds = seconds;
 
 		this.lblTitle = new JLabel(title);
 		if(title != "Distance") {
@@ -44,7 +43,9 @@ public class GraphPanel extends JPanel {
 				average += scores.get(i);
 			}
 			average /= scores.size();
-			lblAverage.setText(Double.toString(average));
+			average = Math.floor(average * 100) / 100;
+			lblAverage = new JLabel();
+			lblAverage.setText("Average " + title + ": " +Double.toString(average));
 			this.add(lblAverage);
 		}
 		this.add(lblTitle);
@@ -61,7 +62,7 @@ public class GraphPanel extends JPanel {
 
 		List<Point> graphPoints = new ArrayList<>();
 		for (int i = 0; i < scores.size(); i++) {
-			int x1 = (int) (seconds.get(i) + padding + labelPadding);
+			int x1 = (int) (i * xScale + padding + labelPadding);
 			int y1 = (int) ((getMaxScore() - scores.get(i)) * yScale + padding);
 			graphPoints.add(new Point(x1, y1));
 		}

@@ -58,10 +58,10 @@ public class MainFrame extends JFrame {
 		topPanel = new JPanel();
 		lblUserData = new JLabel();
 		StyleComponents.styleDefaultLabel(lblUserData);
-		/*userData = "Username"+ "name"
+		userData = "Username"+ "name"
 				+ "Weight"+  "Length"+ "age"
-				+"Max Heartrate" + "Gender";*/
-		userData = controller.getUserData()[0] +" "+controller.getUserData()[1] +" "+controller.getUserData()[2] +" "+controller.getUserData()[3] +" "+controller.getUserData()[4] +" "+controller.getUserData()[5] +" "+controller.getUserData()[6];
+				+"Max Heartrate" + "Gender";
+		// userData = controller.getUserData()[0] +" "+controller.getUserData()[1] +" "+controller.getUserData()[2] +" "+controller.getUserData()[3] +" "+controller.getUserData()[4] +" "+controller.getUserData()[5] +" "+controller.getUserData()[6];
 		upperPanel = new JPanel();
 		lblTitle = new JLabel(userData);
 		cbxActivities = new JComboBox<>();
