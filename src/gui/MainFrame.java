@@ -7,6 +7,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,6 +34,7 @@ public class MainFrame extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable activityTable;
 	private ApplicationController controller;
+	private String[][] selectedActivity;
 	public MainFrame(ApplicationController controller) {
 		this.controller = controller;
 		initComponents();
@@ -63,8 +65,7 @@ public class MainFrame extends JFrame {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
-		lblCurrentActivity.setText("Current Activity: Example Activity"); // Will update itself every time activity is
-																			// chosen.
+		lblCurrentActivity.setText("Current Activity: ");
 		StyleComponents.styleJPanel(upperPanel);
 		StyleComponents.styleTitleLabel(lblTitle);
 
@@ -80,18 +81,19 @@ public class MainFrame extends JFrame {
 		StyleComponents.styleMainFrameButton(btnImport);
 		StyleComponents.styleJPanel(borderPanel);
 		StyleComponents.styleBorderPanel(borderPanel);
+		selectedActivity = new String[][] { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
+			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
+			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
+			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
+			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
+			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
+			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
+			{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } };
 		activityTable.setModel(new DefaultTableModel( // A lot of nulls to check if the scroll option works, will delete
 														// later,
 				// Otherwise may be useful when presenting to explain what happens when the
 				// amount of data exceeds space in the panel
-				new Object[][] { { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-						{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-						{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-						{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-						{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-						{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-						{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-						{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null }, { null } },
+				selectedActivity,
 				new String[] { "Time", "Seconds", "Longitude", "Latitude", "Altitude", "Distance", "Heart rate",
 						"Speed", "Cadence" }));
 		scrollPane.setViewportView(activityTable); // Adds scroll option to the table
@@ -163,15 +165,14 @@ public class MainFrame extends JFrame {
 		pack();
 	}
 
-	private Object importActivity() {
-		try {
-			File file = new File("C:/");
-			Desktop desktop = Desktop.getDesktop();
-			desktop.open(file);
-		} catch (Exception ex) {
-			
+	private void importActivity() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File("C:/"));
+		int response = fileChooser.showOpenDialog(null);
+		if(response == JFileChooser.APPROVE_OPTION) {
+			File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+			System.out.print(file.getAbsolutePath()); //Saves path, dunno what to do with it later
 		}
-		return null;
 	}
 
 	private void openUserSettings() {
@@ -179,6 +180,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void selectActivity() {
+		lblCurrentActivity.setText("Current Activity: " + cbxActivities.getItemAt(cbxActivities.getSelectedIndex()));
 		controller.setCurrentActivity(cbxActivities.getItemAt(cbxActivities.getSelectedIndex()));
 	}
 
