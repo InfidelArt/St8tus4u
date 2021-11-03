@@ -57,7 +57,7 @@ public class UserDao implements DaoInterface<User> {
 					);
 			
 			if (resultSet.next()) {
-				User retrievedUser = new User(resultSet.getInt(1), username, resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7));
+				User retrievedUser = new User(resultSet.getInt(1), username, resultSet.getString(2), resultSet.getString(3), resultSet.getDouble(4), resultSet.getDouble(5), resultSet.getInt(6), resultSet.getString(7));
 				return retrievedUser;
 			} else {
 				throw new InputMismatchException("No such user in the database.");
@@ -131,13 +131,17 @@ public class UserDao implements DaoInterface<User> {
 		try {
 			preparedStatement = dbConnectionManager.prepareStatement(""
 					+ "UPDATE user_data "
-					+ "SET password=?, weight=?, gender=? "
+					+ "SET password=?, name=?, weight=?, length=?, age=?, gender=? "
 					+ "WHERE user_id=?"
 					);
 			preparedStatement.setString(1, user.getPassword());
-			preparedStatement.setDouble(2, user.getWeight());
-			preparedStatement.setString(3, user.getGender());
-			preparedStatement.setInt(4, user.getId());
+			preparedStatement.setString(2, user.getName());
+			preparedStatement.setDouble(3, user.getWeight());
+			preparedStatement.setDouble(4, user.getLength()); // TODO  dsofkso
+			preparedStatement.setInt(5, user.getAge());
+			preparedStatement.setString(6, user.getGender());
+
+			preparedStatement.setInt(7, user.getId());
 			preparedStatement.execute();
 			System.out.println("Successfully updated user " + user.getUsername() + ".");
 		} catch (SQLException e) {

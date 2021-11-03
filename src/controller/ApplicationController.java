@@ -74,6 +74,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 	    }
 	    String password = sb.toString();
 		System.out.println("Username: " + username + "\nPassword: "+ password + "\nGender: " + gender + "\nEncrypted Password: " + arrayPassword);
+		// TODO make it so database uses encrypted password (must change login method and user class)
+		
 		sessionHandler.registerNewUser(username, password, gender);
 	}
 
@@ -116,6 +118,10 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public boolean changeActivityName(String activityID, String newName) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	public void setName(String name) throws DataEntryException {
+		sessionHandler.getLoggedInUser().setName(name);
+		sessionHandler.updateUser(sessionHandler.getLoggedInUser()); 
 	}
 	public void setWeight(double weight) throws DataEntryException {
 		sessionHandler.getLoggedInUser().setWeight(weight);

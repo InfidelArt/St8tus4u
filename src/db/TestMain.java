@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import javax.security.auth.login.FailedLoginException;
@@ -27,6 +28,19 @@ public class TestMain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		try {
+			controller.registerNewAccount("jesper123343", "jesper321".toCharArray(), "male");
+		} catch (InputMismatchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DataEntryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		/*
 		SessionHandler sessionHandler = new SessionHandler();
 		try {

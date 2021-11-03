@@ -100,27 +100,18 @@ public class User implements UserInterface {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public void setWeight(String weight) {
-		this.weight = Double.parseDouble(weight);
-	}
 	public void setWeight(double weight) {
-		
 		this.weight = weight;
 	}
+
 	public double getWeight() {
 		return this.weight;
-	}
-	public void setLength(String length) {
-		this.length = Double.parseDouble(length);
 	}
 	public void setLength(double length) {
 		this.length = length;
 	}
 	public double getLength() {
 		return this.length;
-	}
-	public void setAge(String age) {
-		this.age = Integer.parseInt(age);
 	}
 	public void setAge(int age) {
 		this.age = age;
@@ -136,7 +127,7 @@ public class User implements UserInterface {
 	}
 	
 	public String toString() {
-		return getUsername() + ", " + getGender();
+		return getUsername() + ", " + getName();
 	}
 	/**
 	 * Checks if the given username for a new User object is valid, for example, that isn't too long or contains whitespaces.
