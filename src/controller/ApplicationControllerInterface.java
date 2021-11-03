@@ -1,11 +1,14 @@
 package controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 
 import javax.security.auth.login.FailedLoginException;
 
+import date.InvalidDateException;
 import db.DataEntryException;
+import time.InvalidTimeException;
 import user.User;
 
 /*
@@ -70,10 +73,13 @@ public interface ApplicationControllerInterface {
 	 * Adds a new activity to the user's list of activities. 
 	 * @param nameOfActivity
 	 * @param pathToCSVFile
-	 * @return true if the operation was successful, false if not.
+	 * @throws InvalidDateException 
+	 * @throws InvalidTimeException 
+	 * @throws IOException 
+	 * @throws DataEntryException 
 	 */
 	
-	public boolean addNewActivity(String nameOfActivity, String pathToCSVFile);
+	public void addNewActivity(String nameOfActivity, String pathToCSVFile) throws IOException, InvalidTimeException, InvalidDateException, DataEntryException;
 	
 	/**
 	 * @param weight

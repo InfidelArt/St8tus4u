@@ -18,8 +18,7 @@ public class Activity {
 	
 	private ArrayList<ActivitySnapshot> activityLog;
 	
-	public Activity (int id, String activityName, ArrayList<ActivitySnapshot> activityLog) {
-		this.id = id;
+	public Activity (String activityName, ArrayList<ActivitySnapshot> activityLog) {
 		this.activityName = activityName;
 		this.activityLog = activityLog;
 		
@@ -30,6 +29,12 @@ public class Activity {
 		
 		this.totalTime = createTotalTime();
 		this.startTime = createStartTime();
+	}
+	
+	public Activity (int id, String activityName, ArrayList<ActivitySnapshot> activityLog) {
+		this(activityName, activityLog);
+		this.id = id;
+		
 		
 		// TODO calculate avareges from activityLog
 	}
@@ -38,9 +43,19 @@ public class Activity {
 		this(id, activityName, activityLog);
 		this.startLocation = startLocation;
 	}
+	public Activity (String activityName, String startLocation, ArrayList<ActivitySnapshot> activityLog) {
+		this(activityName, activityLog);
+		this.startLocation = startLocation;
+	}
 	
 	public ArrayList<ActivitySnapshot> getActivityLog() {
 		return this.activityLog;
+	}
+	public String getActivityName() {
+		return this.activityName;
+	}
+	public void setActivityName(String name) {
+		this.activityName = name;
 	}
 	public int getId() {
 		return this.id;
@@ -64,7 +79,7 @@ public class Activity {
 		return this.startTime;
 	}
 	
-	private double calculateAvaregeSpeed() {
+	private double calculateAvaregeSpeed() { // TODO round down to 2 decimals
 		double total = 0;
 		for (ActivitySnapshot snapshot : activityLog) {
 			total = total + snapshot.getSpeed();
@@ -73,7 +88,7 @@ public class Activity {
 		
 		return avarege;
 	}
-	private double calculateAvaregeHeartRate() {
+	private double calculateAvaregeHeartRate() { // round to 2 decimals
 		double total = 0;
 		for (ActivitySnapshot snapshot : activityLog) {
 			total = total + snapshot.getHeartRate();

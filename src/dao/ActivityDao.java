@@ -13,6 +13,10 @@ public class ActivityDao implements DaoInterface {
 	
 	DbConnectionManager dbConnectionManager;
 	
+	public ActivityDao() {
+		dbConnectionManager = DbConnectionManager.getInstance();
+	}
+	
 	@Override
 	public Activity get(int id) {
 		// TODO Auto-generated method stub
@@ -25,7 +29,7 @@ public class ActivityDao implements DaoInterface {
 		return null;
 	}
 	
-	public Activity save(int userId, Object t) throws DataEntryException {
+	public Activity save(int userId, Activity activity) throws DataEntryException {
 		
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -35,6 +39,17 @@ public class ActivityDao implements DaoInterface {
 					"INSERT INTO activity_list (user_id, activity_name, start_date, start_location, avarege_speed, avarege_heart_rate, total_time, start_time) "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 					);
+			preparedStatement.setInt(1, userId);
+			preparedStatement.setString(2, activity.getActivityName());
+			preparedStatement.setString(3, activity.getStartDate().toString());
+			preparedStatement.setString(4, activity.getStartLocation());
+			preparedStatement.setDouble(5, activity.getAvaregeSpeed());
+			preparedStatement.setDouble(6, activity.getAvaregeHeartRate());
+			preparedStatement.setString(7, activity.getTotalTime().toString());
+			preparedStatement.setString(8, activity.getStartTime().toString());
+			
+			preparedStatement.execute();
+			
 			// TODO continue here
 		} catch (SQLException e) {
 			e.printStackTrace();

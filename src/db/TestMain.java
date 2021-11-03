@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.security.auth.login.FailedLoginException;
 
+import activity.Activity;
 import activity.ActivitySnapshot;
 import controller.ApplicationController;
 import dao.UserDao;
@@ -19,7 +20,7 @@ import time.InvalidTimeException;
 
 public class TestMain {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws DataEntryException, IOException, InvalidTimeException, InvalidDateException {
 		// TODO Auto-generated method stub
 		ApplicationController controller = new ApplicationController();
 		try {
@@ -29,17 +30,7 @@ public class TestMain {
 			e.printStackTrace();
 		}
 		
-		try {
-			controller.registerNewAccount("jesper123343", "jesper321".toCharArray(), "male");
-		} catch (InputMismatchException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DataEntryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
+		controller.addNewActivity("testaktivitet2", "test activity.csv");
 		
 		/*
 		SessionHandler sessionHandler = new SessionHandler();

@@ -10,7 +10,9 @@ import java.util.List;
 
 import javax.security.auth.login.FailedLoginException;
 
+import activity.Activity;
 import activity.ActivitySnapshot;
+import dao.ActivityDao;
 import dao.UserDao;
 import date.Date;
 import date.InvalidDateException;
@@ -21,10 +23,12 @@ import user.User;
 
 public class SessionHandler {
 	UserDao userDao;
+	ActivityDao activityDao;
 	User loggedInUser;
 	
 	public SessionHandler() {
 		userDao = new UserDao();
+		activityDao = new ActivityDao();
 		loggedInUser = null;
 	}
 	
@@ -60,6 +64,10 @@ public class SessionHandler {
 	
 	public void updateUser(User user) throws DataEntryException {
 		userDao.update(user);
+	}
+	
+	public void addActivity (Activity activity) throws DataEntryException {
+		activityDao.save(getLoggedInUser().getId(), activity);
 	}
 	
 	public ArrayList<ActivitySnapshot> importLog (String pathToCSV) throws IOException, InvalidTimeException, InvalidDateException {

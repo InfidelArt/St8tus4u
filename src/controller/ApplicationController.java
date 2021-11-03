@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -7,6 +8,9 @@ import java.util.List;
 
 import javax.security.auth.login.FailedLoginException;
 
+import activity.Activity;
+import activity.ActivitySnapshot;
+import date.InvalidDateException;
 import db.DataEntryException;
 import gui.GraphFrame;
 import gui.LoginFrame;
@@ -14,6 +18,7 @@ import gui.MainFrame;
 import gui.SignUpDialogueBox;
 import gui.UserSettingsFrame;
 import session.SessionHandler;
+import time.InvalidTimeException;
 import user.User;
 
 /**
@@ -101,9 +106,11 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public boolean addNewActivity(String nameOfActivity, String pathToCSVFile) {
-		// TODO Auto-generated method stub
-		return false;
+	public void addNewActivity(String nameOfActivity, String pathToCSVFile) throws IOException, InvalidTimeException, InvalidDateException, DataEntryException {
+		ArrayList<ActivitySnapshot> log = sessionHandler.importLog(pathToCSVFile);
+		Activity activity = new Activity(nameOfActivity, log);
+		
+		sessionHandler.addActivity(activity);
 	}
 
 	@Override

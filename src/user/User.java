@@ -1,6 +1,9 @@
 package user;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+
+import activity.Activity;
 
 public class User implements UserInterface {
 	
@@ -15,7 +18,6 @@ public class User implements UserInterface {
 	private double length;
 	private int age;
 	private String name;
-	
 	
 	
 	public User(String username, String password, Object name, Object weight, Object length, Object age, String gender) throws InputMismatchException {
@@ -125,7 +127,7 @@ public class User implements UserInterface {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String toString() {
 		return getUsername() + ", " + getName();
 	}
