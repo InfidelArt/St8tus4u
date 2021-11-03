@@ -18,22 +18,35 @@ public class User implements UserInterface {
 	
 	
 	
-	public User(String username, String password, String gender) throws InputMismatchException {
+	public User(String username, String password, Object name, Object weight, Object length, Object age, String gender) throws InputMismatchException {
 		setUsername(username);
 		setPassword(password);
 		setGender(gender);
+		
+		if (name != null) {
+			this.name = (String) name;
+		}
+		if (weight != null) {
+			this.weight = (double) weight;
+		}
+		if (length != null) {
+			this.length = (double) length;
+		}
+		if (age != null) {
+			this.age = (int) age;
+		}
 		
 		//setGender(gender);
 	}
 	/*
 	 * Constructor to be used when the user has an ID, for example, by a Data Access Object when it has a generated user ID from a database.
 	 */
-	public User(int id, String username, String password, String gender) {
-		this(username, password, gender);
+	public User(int id, String username, String password, Object name, Object weight, Object length, Object age, String gender) {
+		this(username, password, name, weight, length, age, gender);
 		this.id = id;
 	}
 	public User(int id, User user) {
-		this(user.getUsername(), user.getPassword(), user.getGender());
+		this(user.getUsername(), user.getPassword(), user.getName(), user.getWeight(), user.getLength(), user.getAge(), user.getGender());
 		setId(id);
 	}
 	

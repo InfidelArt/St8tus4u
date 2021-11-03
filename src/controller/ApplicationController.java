@@ -58,9 +58,9 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public void logIn(String username, String password) throws FailedLoginException {				
-		new MainFrame(controller).setVisible(true);
+	public void logIn(String username, String password) throws FailedLoginException {		
 		sessionHandler.logIn(username, password);	
+		new MainFrame(controller).setVisible(true);
 	}
 
 
@@ -112,7 +112,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 		
 	}
 	public void updateUser(String password, String gender) throws DataEntryException {
-		sessionHandler.updateUser(new User(sessionHandler.getLoggedInUser().getId(), sessionHandler.getLoggedInUser().getUsername(), password, gender));
+		sessionHandler.updateUser(new User(sessionHandler.getLoggedInUser().getId(), sessionHandler.getLoggedInUser().getUsername(), password, null, null, null, null, gender));
 	}
 	@Override
 	public boolean changeActivityName(String activityID, String newName) {

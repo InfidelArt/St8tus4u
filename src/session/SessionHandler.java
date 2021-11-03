@@ -51,7 +51,7 @@ public class SessionHandler {
 			throw new DataEntryException("User already exists in database.");
 		}
 		
-		User newUser = new User(username, password, gender);	
+		User newUser = new User(username, password, null, null, null, null, gender);	
 		return userDao.save(newUser);
 	}
 	public List<User> getAllUsers() {

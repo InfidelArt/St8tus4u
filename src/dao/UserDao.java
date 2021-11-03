@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import db.DataEntryException;
 import db.DbConnectionManager;
@@ -50,14 +49,15 @@ public class UserDao implements DaoInterface<User> {
 		
 		try {
 			ResultSet resultSet = dbConnectionManager.excecuteQuery(
-					"SELECT users.user_id, user_data.password, user_data.gender "
+					// user_data.name, user_data.weight, user_data.length, user_data.age,
+					"SELECT users.user_id, user_data.password, user_data.name, user_data.weight, user_data.length, user_data.age, user_data.gender "
 				  + "FROM users "
 				  + "INNER JOIN user_data ON users.user_id=user_data.user_id "
 				  + "WHERE username='" + username + "';"
 					);
 			
 			if (resultSet.next()) {
-				User retrievedUser = new User(resultSet.getInt(1), username, resultSet.getString(2), resultSet.getString(3));
+				User retrievedUser = new User(resultSet.getInt(1), username, resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7));
 				return retrievedUser;
 			} else {
 				throw new InputMismatchException("No such user in the database.");
@@ -75,12 +75,12 @@ public class UserDao implements DaoInterface<User> {
 		
 		try {
 			ResultSet resultSet = dbConnectionManager.excecuteQuery(""
-					+ "SELECT users.user_id, users.username, user_data.password, user_data.gender "
+					+ "SELECT users.user_id, users.username, user_data.password, user_data.name, user_data.weight, user_data.length, user_data.age user_data.gender "
 					+ "FROM users "
 					+ "INNER JOIN user_data ON users.user_id=user_data.user_id;"
 					);
 			while (resultSet.next()) {				
-				usersList.add(new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4)));
+				usersList.add(new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

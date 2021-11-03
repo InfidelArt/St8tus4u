@@ -27,7 +27,7 @@ public class TestMain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		/*
 		SessionHandler sessionHandler = new SessionHandler();
 		try {
 			List<ActivitySnapshot> log = sessionHandler.importLog("test activity.csv");
@@ -45,6 +45,8 @@ public class TestMain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
+	
 
 }
