@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import db.DataEntryException;
+
 // As this program uses multiple Data Access Objects, this is the unified interface for them.
 
 /**
@@ -13,7 +15,11 @@ import java.util.List;
 public interface DaoInterface<T> {
 	T get(int id);
 	List<T> getAll();
-	void save(T t);
-	void update(T t);
+	/**
+	 * @return The same object with the generated ID from the database.
+	 * @throws DataEntryException 
+	 */
+	T save(T t) throws DataEntryException;
+	void update(T t) throws DataEntryException;
 	void delete(T t);
 }

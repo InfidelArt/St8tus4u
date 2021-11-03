@@ -6,27 +6,48 @@ public class User implements UserInterface {
 	
 	private final int MAX_USERNAME_LENGTH = 24;
 	private final int MAX_PASSWORD_LENGTH = 24;
-	
 	private enum Genders {MALE, FEMALE, OTHER}
 	private Genders gender;
 	private String username;
 	private String password;
 	private int id;
+	private double weight;
+	private double length;
+	private int age;
+	private String name;
 	
 	
-	public User(String username, String password, String gender) throws InputMismatchException {
+	
+	public User(String username, String password, Object name, Object weight, Object length, Object age, String gender) throws InputMismatchException {
 		setUsername(username);
 		setPassword(password);
 		setGender(gender);
+		
+		if (name != null) {
+			this.name = (String) name;
+		}
+		if (weight != null) {
+			this.weight = (double) weight;
+		}
+		if (length != null) {
+			this.length = (double) length;
+		}
+		if (age != null) {
+			this.age = (int) age;
+		}
 		
 		//setGender(gender);
 	}
 	/*
 	 * Constructor to be used when the user has an ID, for example, by a Data Access Object when it has a generated user ID from a database.
 	 */
-	public User(int id, String username, String password, String gender) {
-		this(username, password, gender);
+	public User(int id, String username, String password, Object name, Object weight, Object length, Object age, String gender) {
+		this(username, password, name, weight, length, age, gender);
 		this.id = id;
+	}
+	public User(int id, User user) {
+		this(user.getUsername(), user.getPassword(), user.getName(), user.getWeight(), user.getLength(), user.getAge(), user.getGender());
+		setId(id);
 	}
 	
 	
@@ -73,7 +94,47 @@ public class User implements UserInterface {
 		return this.gender.name().toLowerCase();
 		
 	}
-
+	public int getId() {
+		return this.id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setWeight(String weight) {
+		this.weight = Double.parseDouble(weight);
+	}
+	public void setWeight(double weight) {
+		
+		this.weight = weight;
+	}
+	public double getWeight() {
+		return this.weight;
+	}
+	public void setLength(String length) {
+		this.length = Double.parseDouble(length);
+	}
+	public void setLength(double length) {
+		this.length = length;
+	}
+	public double getLength() {
+		return this.length;
+	}
+	public void setAge(String age) {
+		this.age = Integer.parseInt(age);
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public int getAge() {
+		return this.age;
+	}
+	public String getName() {
+		return this.name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String toString() {
 		return getUsername() + ", " + getGender();
 	}
@@ -114,7 +175,6 @@ public class User implements UserInterface {
 		}
 		
 		throw new InputMismatchException("Invalid input for the gender parameter.");
-		
-		
 	}
+	
 }

@@ -1,10 +1,13 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.List;
 
 import javax.security.auth.login.FailedLoginException;
 
+import db.DataEntryException;
 import gui.LoginFrame;
 import gui.MainFrame;
 import gui.SignUpDialogueBox;
@@ -50,19 +53,20 @@ public class ApplicationController implements ApplicationControllerInterface {
 		loginFrame.setVisible(true);
 	}
 	
-	
 	public static void main(String[] args) {
 		new ApplicationController();
 	}
 
 	@Override
 	public void logIn(String username, String password) throws FailedLoginException {		
+		sessionHandler.logIn(username, password);	
 		new MainFrame(controller).setVisible(true);
-		sessionHandler.logIn(username, password);		
 	}
 
+
+
 	@Override
-	public void registerNewAccount(String username, char[] arrayPassword, String gender) throws InputMismatchException {	
+	public void registerNewAccount(String username, char[] arrayPassword, String gender) throws InputMismatchException, DataEntryException {	
 		StringBuilder sb = new StringBuilder();
 	    for (char subArray : arrayPassword) {
 	        sb.append(subArray);
@@ -70,13 +74,15 @@ public class ApplicationController implements ApplicationControllerInterface {
 	    String password = sb.toString();
 		System.out.println("Username: " + username + "\nPassword: "+ password + "\nGender: " + gender + "\nEncrypted Password: " + arrayPassword);
 		sessionHandler.registerNewUser(username, password, gender);
+
+		
 		
 	}
 
 	@Override
 	public String[] getUserData() {
 		User user = sessionHandler.getLoggedInUser();
-		String [] returnArray = {user.getUsername(), null, null, null, null, null, user.getGender().toLowerCase()};
+		String [] returnArray = {user.getUsername(), user.getName(), String.valueOf(user.getWeight()), String.valueOf(user.getLength()), String.valueOf(user.getAge()), user.getGender().toLowerCase()};
 		
 		
 		return returnArray;
@@ -101,53 +107,31 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public boolean removeActivity(String activityID) {
+	public void removeActivity(String activityID) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
-
-	@Override
-	public boolean setName(String name) {
-		// TODO Auto-generated method stub
-		return false;
+	public void updateUser(String password, String gender) throws DataEntryException {
+		sessionHandler.updateUser(new User(sessionHandler.getLoggedInUser().getId(), sessionHandler.getLoggedInUser().getUsername(), password, null, null, null, null, gender));
 	}
-
-	@Override
-	public boolean changeGender(String gender) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setAge(int age) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setWeight(double weight) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setLength(double length) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean changePassword(String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	@Override
 	public boolean changeActivityName(String activityID, String newName) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	public void setWeight(double weight) throws DataEntryException {
+		sessionHandler.getLoggedInUser().setWeight(weight);
+		sessionHandler.updateUser(sessionHandler.getLoggedInUser()); 
+	}
+	public void setLength(double length) throws DataEntryException {
+		sessionHandler.getLoggedInUser().setLength(length);
+		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+	}
+	public void setAge(int age) throws DataEntryException {
+		sessionHandler.getLoggedInUser().setAge(age);
+		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+	}
+	
 	@Override
 	public boolean isLoggedIn() {
 		if (sessionHandler.getLoggedInUser() == null)
@@ -161,7 +145,20 @@ public class ApplicationController implements ApplicationControllerInterface {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	public String[][] getAllUsers() {
+		List<User> userList = sessionHandler.getAllUsers();
+		String[][] retrievedUsers = new String[userList.size()][4];
+		
+		for (int i = 0; i <= userList.size() - 1; i++) {
+			retrievedUsers[i][0] = String.valueOf(userList.get(i).getId());
+			retrievedUsers[i][1] = userList.get(i).getUsername();
+			retrievedUsers[i][2] = userList.get(i).getPassword();
+			retrievedUsers[i][3] = userList.get(i).getGender();
+		}
+		
+		return retrievedUsers;
+	}
+	
 	@Override
 	public void signUp() {
 		// TODO
@@ -176,16 +173,9 @@ public class ApplicationController implements ApplicationControllerInterface {
 		
 	}
 
-
-	@Override
-	public void registerNewAccount(String username, String password, String gender) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	public void openUserSettings() {
 		userSettings = new UserSettingsFrame(controller);
 		userSettings.setVisible(true);
 	}
+
 }
