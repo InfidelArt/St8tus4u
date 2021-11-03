@@ -186,4 +186,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public void showGraph() {
 		GraphFrame graphFrame = new GraphFrame();
 	}
+
+	public void setCurrentActivity(String activityName) {
+		// TODO
+	}
 }

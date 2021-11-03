@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -21,7 +22,8 @@ public class GraphPanel extends JPanel {
 	private int heigth = 400;
 	private int padding = 25;
 	private int labelPadding = 25;
-	private Color lineColor = new Color(255, 0, 0, 255);
+	private JLabel lblTitle;
+	private Color lineColor;
 	private Color pointColor = new Color(100, 100, 100, 180);
 	private Color gridColor = new Color(200, 200, 200, 200);
 	private static final Stroke GRAPH_STROKE = new BasicStroke(4f);
@@ -29,7 +31,10 @@ public class GraphPanel extends JPanel {
 	private int numberYDivisions = 10;
 	private List<Double> scores;
 
-	public GraphPanel(List<Double> scores) {
+	public GraphPanel(List<Double> scores, Color color, String title) {
+		this.lineColor = color;
+		this.lblTitle = new JLabel(title);
+		this.add(lblTitle);
 		this.scores =scores;
 
 	}

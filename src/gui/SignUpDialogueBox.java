@@ -19,7 +19,7 @@ import db.DataEntryException;
 
 public class SignUpDialogueBox extends JFrame {
 	private JButton btnCreateAcc;
-	private JComboBox<String> cboxGenderPicker;
+	private JComboBox<String> cbxGenderPicker;
 	private JLabel lblTitle;
 	private JLabel lblBottom;
 	private JLabel lblGender;
@@ -49,7 +49,7 @@ public class SignUpDialogueBox extends JFrame {
 		txtUsername.addMouseListener(new AutoEraseListener(TXT_USERNAME_STANDARD_TEXT, txtUsername));
 		txtPassword.addMouseListener(new AutoEraseListener(TXT_PASSWORD_STANDARD_TEXT, txtPassword));
 		lblGender = new JLabel("Gender");	
-		cboxGenderPicker = new JComboBox<>();
+		cbxGenderPicker = new JComboBox<>();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		StyleComponents.styleDefaultLabel(lblGender);
 		StyleComponents.styleJPanel(signUpPanel);
@@ -61,7 +61,7 @@ public class SignUpDialogueBox extends JFrame {
 		StyleComponents.styleDefaultTextBox(txtPassword);
 		StyleComponents.styleTitleLabel(lblTitle);
 		
-		cboxGenderPicker
+		cbxGenderPicker
 				.setModel(new DefaultComboBoxModel<>(new String[] { "Select Your Gender", "Male", "Female", "Other" }));
 
 		
@@ -75,7 +75,7 @@ public class SignUpDialogueBox extends JFrame {
                     .addGroup(signUpPanelLayout.createSequentialGroup()
                         .addComponent(lblGender)
                         .addGap(18, 18, 18)
-                        .addComponent(cboxGenderPicker, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cbxGenderPicker, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(lblTitle, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
                     .addComponent(txtUsername, GroupLayout.Alignment.TRAILING)
                     .addComponent(btnCreateAcc, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -96,7 +96,7 @@ public class SignUpDialogueBox extends JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(signUpPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lblGender)
-                    .addComponent(cboxGenderPicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxGenderPicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnCreateAcc, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(119, Short.MAX_VALUE))
@@ -133,7 +133,7 @@ public class SignUpDialogueBox extends JFrame {
 
 	private void createAccount() {
 		try {
-			controller.registerNewAccount(txtUsername.getText(), txtPassword.getPassword(), cboxGenderPicker.getSelectedItem().toString());
+			controller.registerNewAccount(txtUsername.getText(), txtPassword.getPassword(), cbxGenderPicker.getItemAt(cbxGenderPicker.getSelectedIndex()));
 		} catch (InputMismatchException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

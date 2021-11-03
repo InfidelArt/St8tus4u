@@ -1,5 +1,8 @@
 package gui;
 
+import java.awt.Desktop;
+import java.io.File;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -161,7 +164,13 @@ public class MainFrame extends JFrame {
 	}
 
 	private Object importActivity() {
-		// TODO Auto-generated method stub
+		try {
+			File file = new File("C:/");
+			Desktop desktop = Desktop.getDesktop();
+			desktop.open(file);
+		} catch (Exception ex) {
+			
+		}
 		return null;
 	}
 
@@ -170,7 +179,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void selectActivity() {
-		// TODO Auto-generated method stub
+		controller.setCurrentActivity(cbxActivities.getItemAt(cbxActivities.getSelectedIndex()));
 	}
 
 	private void showGraph() {
@@ -178,10 +187,10 @@ public class MainFrame extends JFrame {
 	}
 
 	private void editActivity() {
-		// TODO Auto-generated method stub
+		//TODO
 	}
 
 	private void removeActivity() {
-		// TODO Auto-generated method stub
+		controller.removeActivity(cbxActivities.getItemAt(cbxActivities.getSelectedIndex()));
 	}
 }

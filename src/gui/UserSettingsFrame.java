@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -30,9 +31,11 @@ public class UserSettingsFrame extends JFrame {
 	private final String TXT_WEIGHT_STANDARD_TEXT = "Weight";
 	private final String TXT_LENGTH_STANDARD_TEXT = "Length";
 	private final String TXT_AGE_STANDARD_TEXT = "Age";
+	private UserSettingsFrame frame;
 
 	public UserSettingsFrame(ApplicationController controller) {
 		this.controller = controller;
+		this.frame = this;
 		initComponents();
 	}
 
