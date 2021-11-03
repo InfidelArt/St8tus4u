@@ -178,10 +178,4 @@ public class ApplicationController implements ApplicationControllerInterface {
 		userSettings.setVisible(true);
 	}
 
-	@Override
-	public User registerNewAccount(String username, String password, String gender) throws DataEntryException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

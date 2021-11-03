@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.InputMismatchException;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -12,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
 import controller.ApplicationController;
+import db.DataEntryException;
 
 
 public class SignUpDialogueBox extends JFrame {
@@ -129,6 +132,14 @@ public class SignUpDialogueBox extends JFrame {
 	}
 
 	private void createAccount() {
-		controller.registerNewAccount(txtUsername.getText(), txtPassword.getPassword(), cboxGenderPicker.getSelectedItem().toString());
+		try {
+			controller.registerNewAccount(txtUsername.getText(), txtPassword.getPassword(), cboxGenderPicker.getSelectedItem().toString());
+		} catch (InputMismatchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DataEntryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

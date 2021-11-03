@@ -44,7 +44,7 @@ public interface ApplicationControllerInterface {
 	 * @param gender Must be either "male" or "female", otherwise it will throw an error
 	 * @throws DataEntryException 
 	 */
-	public User registerNewAccount(String username, String password, String gender) throws DataEntryException;
+	public void registerNewAccount(String username, char[] password, String gender) throws InputMismatchException, DataEntryException;
 	
 	/**
 	 * Gets info about a user
@@ -123,6 +123,4 @@ public interface ApplicationControllerInterface {
 	 * Opens Sign Up Window
 	 */
 	void openSignUpWindow();
-
-	void registerNewAccount(String username, char[] password, String gender) throws InputMismatchException;
 }
