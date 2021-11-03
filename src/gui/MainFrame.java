@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
 		btnSelect = new JButton("Select");
 		btnSelect.addActionListener(e -> selectActivity());
 		btnUserSettings = new JButton("User Settings");
-		btnUserSettings.addActionListener(e -> openUserSettingsWindow());
+		btnUserSettings.addActionListener(e -> openUserSettings());
 		btnImport = new JButton("Import Activity");
 		borderPanel = new JPanel();
 		scrollPane = new JScrollPane();
@@ -159,8 +159,8 @@ public class MainFrame extends JFrame {
 		pack();
 	}
 
-	private void openUserSettingsWindow() {
-		// TODO Auto-generated method stub
+	private void openUserSettings() {
+		//controller.openUserSettings();
 	}
 
 	private void selectActivity() {

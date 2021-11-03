@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
@@ -19,9 +20,9 @@ public class LoginFrame extends JFrame {
 	private JLabel lblTitle;
 	private JLabel lblBottom;
 	private JPanel loginPanel;
-	private JTextField txtPassword;
-	private String TXT_USERNAME_STANDARD_TEXT = "Username";
-	private String TXT_PASSWORD_STANDARD_TEXT = "Password";
+	private JPasswordField txtPassword;
+	private final String TXT_USERNAME_STANDARD_TEXT = "Username";
+	private final String TXT_PASSWORD_STANDARD_TEXT = "Password";
 	private JTextField txtUsername;
 	private ApplicationController controller;
 	private String username;
@@ -36,7 +37,7 @@ public class LoginFrame extends JFrame {
 		this.setTitle("St8tus4U");
 		loginPanel = new JPanel();
 		txtUsername = new JTextField(TXT_USERNAME_STANDARD_TEXT);
-		txtPassword = new JTextField(TXT_PASSWORD_STANDARD_TEXT);
+		txtPassword = new JPasswordField(TXT_PASSWORD_STANDARD_TEXT);
 		txtUsername.addMouseListener(new AutoEraseListener(TXT_USERNAME_STANDARD_TEXT, txtUsername));
 		txtPassword.addMouseListener(new AutoEraseListener(TXT_PASSWORD_STANDARD_TEXT, txtPassword));
 		btnSignUp = new JButton("Sign Up");
@@ -98,6 +99,7 @@ public class LoginFrame extends JFrame {
 		pack();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void loginFrameSignIn() {
 		username = this.txtUsername.getText();
 		password = this.txtPassword.getText();

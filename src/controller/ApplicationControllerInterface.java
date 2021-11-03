@@ -1,8 +1,12 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 
 import javax.security.auth.login.FailedLoginException;
+
+import db.DataEntryException;
+import user.User;
 
 /*
  * What must the controller be able to do?
@@ -38,8 +42,9 @@ public interface ApplicationControllerInterface {
 	 * @param username
 	 * @param password
 	 * @param gender Must be either "male" or "female", otherwise it will throw an error
+	 * @throws DataEntryException 
 	 */
-	public void registerNewAccount(String username, String password, String gender);
+	public User registerNewAccount(String username, String password, String gender) throws DataEntryException;
 	
 	/**
 	 * Gets info about a user
@@ -67,47 +72,31 @@ public interface ApplicationControllerInterface {
 	 * @param pathToCSVFile
 	 * @return true if the operation was successful, false if not.
 	 */
+	
 	public boolean addNewActivity(String nameOfActivity, String pathToCSVFile);
+	
+	/**
+	 * @param weight
+	 * @throws DataEntryException 
+	 */
+	public void setWeight(double weight) throws DataEntryException;
 	
 	/**
 	 * Removes an activity from the user's list of activities.
 	 * @param activityID
 	 * @return true if the operation was successful, false if not.
 	 */
-	public boolean removeActivity(String activityID);
+	
+	public void removeActivity(String activityID);
 	
 	/**
-	 * Adds or changes the name of the user.
-	 * @param name
-	 * @return true if the operation was successful, false if not.
-	 */
-	public boolean setName (String name);
-	/**
-	 * Changes the user's gender
-	 * @param gender Must either be "male" or "female"
-	 * @return true if the operation was successful, false if not.
-	 */
-	public boolean changeGender(String gender);
-	/**
 	 * @param age 
-	 * @return true if the operation was successful, false if not.
 	 */
-	public boolean setAge(int age);
-	/**
-	 * @param weight
-	 * @return true if the operation was successful, false if not.
-	 */
-	public boolean setWeight(double weight);
+	public void setAge(int age) throws DataEntryException;
 	/**
 	 * @param length
-	 * @return true if the operation was successful, false if not.
 	 */
-	public boolean setLength(double length);
-	/**
-	 * @param password
-	 * @return true if the operation was successful, false if not.
-	 */
-	public boolean changePassword(String password);
+	public void setLength(double length) throws DataEntryException;
 	
 	/**
 	 * @param activityID
@@ -134,4 +123,6 @@ public interface ApplicationControllerInterface {
 	 * Opens Sign Up Window
 	 */
 	void openSignUpWindow();
+
+	void registerNewAccount(String username, char[] password, String gender) throws InputMismatchException;
 }
