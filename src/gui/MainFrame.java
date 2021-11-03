@@ -1,22 +1,30 @@
 package gui;
 
 import java.awt.Desktop;
+import java.awt.Dialog;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
 import controller.ApplicationController;
+import date.InvalidDateException;
+import db.DataEntryException;
+import time.InvalidTimeException;
 
 public class MainFrame extends JFrame {
 
@@ -28,13 +36,15 @@ public class MainFrame extends JFrame {
 	private JButton btnImport;
 	private JComboBox<String> cbxActivities;
 	private JLabel lblTitle;
-	private JLabel lblCurrentActivity;
+	private JTextField txtCurrentActivity;
 	private JPanel upperPanel;
 	private JPanel borderPanel;
 	private JScrollPane scrollPane;
 	private JTable activityTable;
 	private ApplicationController controller;
 	private String[][] selectedActivity;
+	private String activityName; 
+
 	public MainFrame(ApplicationController controller) {
 		this.controller = controller;
 		initComponents();
@@ -45,7 +55,8 @@ public class MainFrame extends JFrame {
 		upperPanel = new JPanel();
 		lblTitle = new JLabel("ST8TUS4U");
 		cbxActivities = new JComboBox<>();
-		lblCurrentActivity = new JLabel();
+		txtCurrentActivity = new JTextField();
+		txtCurrentActivity.addMouseListener(new AutoEraseListener(activityName, txtCurrentActivity));
 		btnRemove = new JButton("Remove");
 		btnRemove.addActionListener(e -> removeActivity());
 		btnEdit = new JButton("Edit");
@@ -58,21 +69,26 @@ public class MainFrame extends JFrame {
 		btnUserSettings = new JButton("User Settings");
 		btnUserSettings.addActionListener(e -> openUserSettings());
 		btnImport = new JButton("Import Activity");
-		btnImport.addActionListener(e -> importActivity());
+		btnImport.setToolTipText("Never include character '.' in file name");
+		btnImport.addActionListener(e -> {
+			try {
+				importActivity();
+			} catch (IOException | InvalidTimeException | InvalidDateException | DataEntryException e1) {
+			}
+		});
 		borderPanel = new JPanel();
 		scrollPane = new JScrollPane();
 		activityTable = new JTable();
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
-		lblCurrentActivity.setText("Current Activity: ");
 		StyleComponents.styleJPanel(upperPanel);
 		StyleComponents.styleTitleLabel(lblTitle);
 
 		cbxActivities.setModel(new DefaultComboBoxModel<>(new String[] { "Example Acitivity 1", "Example Acitivity 2",
 				"Example Acitivity 3", "Example Acitivity 4" })); // Will be filled with activities from activity list
 																	// later on
-		StyleComponents.styleDefaultLabel(lblCurrentActivity);
+		StyleComponents.styleDefaultTextBox(txtCurrentActivity);
 		StyleComponents.styleMainFrameButton(btnRemove);
 		StyleComponents.styleMainFrameButton(btnEdit);
 		StyleComponents.styleMainFrameButton(btnGraph);
@@ -113,7 +129,7 @@ public class MainFrame extends JFrame {
 	                .addGap(36, 36, 36)
 	                .addGroup(upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 	                    .addComponent(lblTitle, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                    .addComponent(lblCurrentActivity)
+	                    .addComponent(txtCurrentActivity)
 	                    .addGroup(upperPanelLayout.createSequentialGroup()
 	                        .addComponent(cbxActivities, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	                        .addGap(18, 18, 18)
@@ -151,7 +167,7 @@ public class MainFrame extends JFrame {
 								.addComponent(btnEdit, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnGraph, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnImport, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18).addComponent(lblCurrentActivity)
+						.addGap(18, 18, 18).addComponent(txtCurrentActivity)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(borderPanel,
 								GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
@@ -165,14 +181,16 @@ public class MainFrame extends JFrame {
 		pack();
 	}
 
-	private void importActivity() {
+	private void importActivity() throws IOException, InvalidTimeException, InvalidDateException, DataEntryException {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory(new File("C:/"));
 		int response = fileChooser.showOpenDialog(null);
 		if(response == JFileChooser.APPROVE_OPTION) {
 			File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-			System.out.print(file.getAbsolutePath()); //Saves path, dunno what to do with it later
-		}
+			String activityName = file.getName().substring(0, file.getName().indexOf("."));
+			System.out.println(file.getAbsolutePath() + "\n " + activityName);
+			controller.addNewActivity(activityName, file.getAbsolutePath());
+		}		
 	}
 
 	private void openUserSettings() {
@@ -180,8 +198,10 @@ public class MainFrame extends JFrame {
 	}
 
 	private void selectActivity() {
-		lblCurrentActivity.setText("Current Activity: " + cbxActivities.getItemAt(cbxActivities.getSelectedIndex()));
-		controller.setCurrentActivity(cbxActivities.getItemAt(cbxActivities.getSelectedIndex()));
+		activityName = cbxActivities.getItemAt(cbxActivities.getSelectedIndex());
+		txtCurrentActivity.addMouseListener(new AutoEraseListener(activityName, txtCurrentActivity));
+		txtCurrentActivity.setText(activityName);
+		controller.setCurrentActivity(activityName);
 	}
 
 	private void showGraph() {
@@ -189,7 +209,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void editActivity() {
-		//TODO
+		controller.changeActivityName(activityName, txtCurrentActivity.getText());
 	}
 
 	private void removeActivity() {
