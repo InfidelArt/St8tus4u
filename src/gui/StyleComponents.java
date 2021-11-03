@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,7 +16,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class StyleComponents {
+public class StyleComponents{
 	private static Color primaryColor = new Color(240, 120, 0);
 	private static Color secondaryColor = new Color(246, 249, 239);
 	private static Color tertiaryColor = new Color(50, 66, 161);

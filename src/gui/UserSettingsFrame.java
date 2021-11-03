@@ -6,14 +6,16 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
 import controller.ApplicationController;
+import db.DataEntryException;
 
 public class UserSettingsFrame extends JFrame {
-	private ApplicationController controller; 
+	private ApplicationController controller;
 	private JButton btnSaveChanges;
 	private JComboBox<String> cbxGender;
 	private JPanel containerPanel;
@@ -29,9 +31,11 @@ public class UserSettingsFrame extends JFrame {
 	private final String TXT_WEIGHT_STANDARD_TEXT = "Weight";
 	private final String TXT_LENGTH_STANDARD_TEXT = "Length";
 	private final String TXT_AGE_STANDARD_TEXT = "Age";
+	private UserSettingsFrame frame;
 
 	public UserSettingsFrame(ApplicationController controller) {
 		this.controller = controller;
+		this.frame = this;
 		initComponents();
 	}
 
@@ -39,16 +43,24 @@ public class UserSettingsFrame extends JFrame {
 		containerPanel = new JPanel();
 		mainPanel = new JPanel();
 		btnSaveChanges = new JButton("Save Changes");
+		btnSaveChanges.addActionListener(e -> {
+			try {
+				saveChanges();
+			} catch (DataEntryException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		lblTitle = new JLabel();
 		txtUsername = new JTextField(TXT_USERNAME_STANDARD_TEXT);
 		txtWeight = new JTextField(TXT_WEIGHT_STANDARD_TEXT);
 		txtLength = new JTextField(TXT_LENGTH_STANDARD_TEXT);
-		lblGender = new JLabel();
+		lblGender = new JLabel("Gender");
 		txtAge = new JTextField(TXT_AGE_STANDARD_TEXT);
 		cbxGender = new JComboBox<>();
 		lblBottom = new JLabel();
 		setResizable(false);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		StyleComponents.styleJPanel(mainPanel);
 		StyleComponents.styleDefaultButton(btnSaveChanges);
@@ -63,9 +75,9 @@ public class UserSettingsFrame extends JFrame {
 		txtLength.addMouseListener(new AutoEraseListener(TXT_LENGTH_STANDARD_TEXT, txtLength));
 		txtAge.addMouseListener(new AutoEraseListener(TXT_AGE_STANDARD_TEXT, txtAge));
 		StyleComponents.styleBottomLabel(lblBottom);
-		
-		cbxGender.setModel(new DefaultComboBoxModel<>(
-				new String[] { "Select Your Gender", "Male", "Female", "Other" }));
+
+		cbxGender
+				.setModel(new DefaultComboBoxModel<>(new String[] { "Select Your Gender", "Male", "Female", "Other" }));
 
 		GroupLayout mainPanelLayout = new GroupLayout(mainPanel);
 		mainPanel.setLayout(mainPanelLayout);
@@ -128,5 +140,14 @@ public class UserSettingsFrame extends JFrame {
 				GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
 		pack();
+	}
+
+	private void saveChanges() throws DataEntryException {
+		controller.setAge(Integer.parseInt(txtAge.getText()));
+		controller.setWeight(Double.parseDouble(txtWeight.getText()));
+		controller.setLength(Double.parseDouble(txtLength.getText()));
+		controller.setUsername(txtUsername.getText());
+		controller.setGender(cbxGender.getItemAt(cbxGender.getSelectedIndex()));
+		dispose();
 	}
 }
