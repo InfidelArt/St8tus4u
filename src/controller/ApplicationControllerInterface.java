@@ -66,8 +66,11 @@ public interface ApplicationControllerInterface {
 	/**
 	 * @return the log of a specific activity as an array of arrays, where each array contains data about a specific interval. An array will have the following structure:
 	 * [Time, ElapsedTime, Longitude, Latitude, Altitude, Distance, HeartRate, Speed, Cadence]
+	 * @throws InvalidDateException 
+	 * @throws InvalidTimeException 
+	 * @throws IOException 
 	 */
-	public String[][] getActivityData();
+	public String[][] getActivityData() throws IOException, InvalidTimeException, InvalidDateException;
 	
 	/**
 	 * Adds a new activity to the user's list of activities. 

@@ -86,4 +86,7 @@ public ActivitySnapshot(Time time, Date date, int elapsedTime, double longitude,
 	public String toString() {
 		return getTime() + ", " + getElapsedTime() + ", " + getLongitude() + ", " + getLatitude() + ", " + getAltitude() + ", " + getDistance() + ", " + getHeartRate() + ", " + getSpeed() + ", " + getCadence();
 	}
+	public String[] toArray() {
+		return new String[] {getTime().toString(), String.valueOf(getElapsedTime()), String.valueOf(getLongitude()), String.valueOf(getLatitude()), String.valueOf(getAltitude()), String.valueOf(getHeartRate()), String.valueOf(getSpeed()), String.valueOf(getCadence())};
+	}
 }

@@ -71,8 +71,9 @@ public class ApplicationController implements ApplicationControllerInterface {
 
 	@Override
 	public void logIn(String username, String password) throws FailedLoginException {	
-		new MainFrame(controller).setVisible(true); // Move this under sessionHandler after you are done
 		sessionHandler.logIn(username, password);	
+		new MainFrame(controller).setVisible(true); // Move this under sessionHandler after you are done
+		
 	}
 
 
@@ -93,7 +94,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 	@Override
 	public String[] getUserData() {
 		User user = sessionHandler.getLoggedInUser();
-		String [] returnArray = {user.getUsername(), user.getName(), String.valueOf(user.getWeight()), String.valueOf(user.getLength()), String.valueOf(user.getAge()), user.getGender().toLowerCase()};
+		String [] returnArray = {user.getUsername(), user.getName(), String.valueOf(user.getWeight()), String.valueOf(user.getLength()), String.valueOf(user.getAge()), "302.0", user.getGender().toLowerCase()};
 		
 		
 		return returnArray;
@@ -106,9 +107,15 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public String[][] getActivityData() {
-		// TODO Auto-generated method stub
-		return null;
+	public String[][] getActivityData() throws IOException, InvalidTimeException, InvalidDateException {
+		ArrayList<ActivitySnapshot> list = sessionHandler.importLog("test activity.csv");
+		String[][] returnArray = new String[list.size()][9];
+		
+		for (int i = 0; i < list.size()-1; i++) {
+			returnArray[i] = list.get(i+1).toArray();
+		}
+		
+		return returnArray;
 	}
 
 	@Override
