@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import controller.ApplicationController;
 
@@ -38,19 +40,23 @@ public class GraphFrame extends JFrame {
 			scoresCadence.add(Double.parseDouble(currentActivity[i][9]));
 		}
 		Random random = new Random();
-		this.setLayout(new GridLayout(2, 2));
-		int maxDataPoints = 20;
-		int maxScore = 10;
+		this.setLayout(new BorderLayout());
+		JPanel topPanel = new JPanel();
+		topPanel.setLayout(new GridLayout(2,1));
+		this.add(topPanel, BorderLayout.NORTH);
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(2, 2));
+		this.add(centerPanel, BorderLayout.CENTER);
 		GraphPanel panelSpeed = new GraphPanel(scoresSpeed, scoresSeconds, speedColor, "Speed");
 		GraphPanel panelDistance = new GraphPanel(scoresDistance, scoresSeconds, distanceColor, "Distance");
 		GraphPanel panelHeartRate = new GraphPanel(scoresHeartRate, scoresSeconds, heartRateColor, "HeartRate");
 		GraphPanel panelCadence = new GraphPanel(scoresCadence, scoresSeconds, cadenceColor, "Cadence");
 		this.setTitle("Graph");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.add(panelSpeed);
-		this.add(panelDistance);
-		this.add(panelHeartRate);
-		this.add(panelCadence);
+		centerPanel.add(panelSpeed);
+		centerPanel.add(panelDistance);
+		centerPanel.add(panelHeartRate);
+		centerPanel.add(panelCadence);
 		this.getContentPane();
 		this.pack();
 		this.setSize(800, 600);

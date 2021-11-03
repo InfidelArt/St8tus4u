@@ -17,7 +17,7 @@ import controller.ApplicationController;
 import db.DataEntryException;
 
 
-public class SignUpDialogueBox extends JFrame {
+public class SignUpFrame extends JFrame {
 	private JButton btnCreateAcc;
 	private JComboBox<String> cbxGenderPicker;
 	private JLabel lblTitle;
@@ -31,7 +31,7 @@ public class SignUpDialogueBox extends JFrame {
 	private final String TXT_PASSWORD_STANDARD_TEXT = "Password";
 	public ApplicationController controller;
 	private char[] password;
-	public SignUpDialogueBox(ApplicationController controller) {
+	public SignUpFrame(ApplicationController controller) {
 		this.controller = controller;
 		initComponents();
 	}

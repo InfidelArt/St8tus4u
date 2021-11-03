@@ -1,6 +1,8 @@
 package gui;
 
 
+import java.awt.BorderLayout;
+
 import javax.security.auth.login.FailedLoginException;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;

@@ -15,7 +15,7 @@ import db.DataEntryException;
 import gui.GraphFrame;
 import gui.LoginFrame;
 import gui.MainFrame;
-import gui.SignUpDialogueBox;
+import gui.SignUpFrame;
 import gui.UserSettingsFrame;
 import session.SessionHandler;
 import time.InvalidTimeException;
@@ -47,7 +47,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 	SessionHandler sessionHandler;
 	public ApplicationController controller;
 	public LoginFrame loginFrame;
-	public SignUpDialogueBox signUpFrame;
+	public SignUpFrame signUpFrame;
 	public MainFrame mainFrame;
 	public UserSettingsFrame userSettings;
 	
@@ -71,7 +71,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 
 	@Override
 	public void logIn(String username, String password) throws FailedLoginException {	
-		new MainFrame(controller).setVisible(true); //Move this under sessionHandler after you are done
+		new MainFrame(controller).setVisible(true); // Move this under sessionHandler after you are done
 		sessionHandler.logIn(username, password);	
 	}
 
@@ -86,8 +86,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 	    String password = sb.toString();
 		System.out.println("Username: " + username + "\nPassword: "+ password + "\nGender: " + gender + "\nEncrypted Password: " + arrayPassword);
 		// TODO make it so database uses encrypted password (must change login method and user class)
-		
 		sessionHandler.registerNewUser(username, password, gender);
+		loginFrame.setVisible(true);
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 
 	@Override
 	public void removeActivity(String activityID) {
-		// TODO Auto-generated method stub
+		// TODO
 		
 	}
 	public void updateUser(String password, String gender) throws DataEntryException {
@@ -192,7 +192,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 	@Override
 	public void openSignUpWindow() {
 		loginFrame.setVisible(false);
-		signUpFrame = new SignUpDialogueBox(controller);
+		signUpFrame = new SignUpFrame(controller);
 		signUpFrame.setVisible(true);
 		
 	}

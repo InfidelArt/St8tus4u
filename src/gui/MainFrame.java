@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.Dialog;
 import java.io.File;
@@ -41,18 +42,28 @@ public class MainFrame extends JFrame {
 	private JTable activityTable;
 	private ApplicationController controller;
 	private String[][] userActivites;
-	private String[][] activityData;
-	private String activityName; 
+	private String[][] currentActivityData;
+	private String activityName;
 	private String[] cbxActivityList;
+	private JPanel topPanel;
+	private JLabel lblUserData;
+	private String userData;
+
 	public MainFrame(ApplicationController controller) {
 		this.controller = controller;
 		initComponents();
 	}
 
 	private void initComponents() {
-
+		topPanel = new JPanel();
+		lblUserData = new JLabel();
+		StyleComponents.styleDefaultLabel(lblUserData);
+		/*userData = "Username"+ "name"
+				+ "Weight"+  "Length"+ "age"
+				+"Max Heartrate" + "Gender";*/
+		userData = controller.getUserData()[0] +" "+controller.getUserData()[1] +" "+controller.getUserData()[2] +" "+controller.getUserData()[3] +" "+controller.getUserData()[4] +" "+controller.getUserData()[5] +" "+controller.getUserData()[6];
 		upperPanel = new JPanel();
-		lblTitle = new JLabel("ST8TUS4U");
+		lblTitle = new JLabel(userData);
 		cbxActivities = new JComboBox<>();
 		txtCurrentActivity = new JTextField();
 		txtCurrentActivity.addMouseListener(new AutoEraseListener(activityName, txtCurrentActivity));
@@ -78,16 +89,17 @@ public class MainFrame extends JFrame {
 		borderPanel = new JPanel();
 		scrollPane = new JScrollPane();
 		activityTable = new JTable();
-		/* userActivites = controller.getUserActivities();
-		for(int i = 0; i < userActivites.length; i++) {
-			
-		}*/
+		/*
+		 * userActivites = controller.getUserActivities(); for(int i = 0; i <
+		 * userActivites.length; i++) {
+		 * 
+		 * }
+		 */
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		StyleComponents.styleJPanel(upperPanel);
-		StyleComponents.styleTitleLabel(lblTitle);
-		
-		
+		StyleComponents.styleDefaultLabel(lblTitle);
+
 		cbxActivities.setModel(new DefaultComboBoxModel<>(new String[] { "Example Acitivity 1", "Example Acitivity 2",
 				"Example Acitivity 3", "Example Acitivity 4" })); // Will be filled with activities from activity list
 																	// later on
@@ -100,14 +112,13 @@ public class MainFrame extends JFrame {
 		StyleComponents.styleMainFrameButton(btnImport);
 		StyleComponents.styleJPanel(borderPanel);
 		StyleComponents.styleBorderPanel(borderPanel);
-		activityData = new String [][] {{null}};
+		currentActivityData = new String[][] { { null } };
 		activityTable.setModel(new DefaultTableModel( // A lot of nulls to check if the scroll option works, will delete
 														// later,
 				// Otherwise may be useful when presenting to explain what happens when the
 				// amount of data exceeds space in the panel
-				activityData,
-				new String[] { "Time", "Seconds", "Longitude", "Latitude", "Altitude", "Distance", "Heart rate",
-						"Speed", "Cadence" }));
+				currentActivityData, new String[] { "Time", "Seconds", "Longitude", "Latitude", "Altitude", "Distance",
+						"Heart rate", "Speed", "Cadence" }));
 		scrollPane.setViewportView(activityTable); // Adds scroll option to the table
 		GroupLayout borderPanelLayout = new GroupLayout(borderPanel);
 		borderPanel.setLayout(borderPanelLayout);
@@ -115,35 +126,40 @@ public class MainFrame extends JFrame {
 				borderPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(scrollPane));
 		borderPanelLayout.setVerticalGroup(borderPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE));
-
 		GroupLayout upperPanelLayout = new GroupLayout(upperPanel);
 		upperPanel.setLayout(upperPanelLayout);
-		upperPanelLayout.setHorizontalGroup(
-				upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	            .addGroup(upperPanelLayout.createSequentialGroup()
-	                .addGap(36, 36, 36)
-	                .addGroup(upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	                    .addComponent(lblTitle, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                    .addComponent(txtCurrentActivity)
-	                    .addGroup(upperPanelLayout.createSequentialGroup()
-	                        .addComponent(cbxActivities, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	                        .addGap(18, 18, 18)
-	                        .addGroup(upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	                            .addGroup(upperPanelLayout.createSequentialGroup()
-	                                .addComponent(btnGraph, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-	                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-	                                .addComponent(btnEdit, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-	                            .addGroup(GroupLayout.Alignment.TRAILING, upperPanelLayout.createSequentialGroup()
-	                                .addComponent(btnSelect, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-	                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-	                                .addComponent(btnRemove, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
-	                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-	                        .addGroup(upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	                            .addComponent(btnUserSettings, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-	                            .addComponent(btnImport, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))))
-	                .addGap(30, 30, 30))
-	            .addComponent(borderPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	        );
+		upperPanelLayout.setHorizontalGroup(upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+				.addGroup(upperPanelLayout.createSequentialGroup().addGap(36, 36, 36)
+						.addGroup(upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+								.addComponent(lblTitle, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(txtCurrentActivity)
+								.addGroup(upperPanelLayout.createSequentialGroup()
+										.addComponent(cbxActivities, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addGap(18, 18, 18)
+										.addGroup(upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+												.addGroup(upperPanelLayout.createSequentialGroup()
+														.addComponent(btnGraph, GroupLayout.PREFERRED_SIZE, 100,
+																GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+														.addComponent(btnEdit, GroupLayout.PREFERRED_SIZE, 100,
+																GroupLayout.PREFERRED_SIZE))
+												.addGroup(GroupLayout.Alignment.TRAILING, upperPanelLayout
+														.createSequentialGroup()
+														.addComponent(btnSelect, GroupLayout.PREFERRED_SIZE, 100,
+																GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+														.addComponent(btnRemove, GroupLayout.PREFERRED_SIZE, 100,
+																GroupLayout.PREFERRED_SIZE)))
+										.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+										.addGroup(upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+												.addComponent(btnUserSettings, GroupLayout.PREFERRED_SIZE, 100,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(btnImport, GroupLayout.PREFERRED_SIZE, 100,
+														GroupLayout.PREFERRED_SIZE))))
+						.addGap(30, 30, 30))
+				.addComponent(borderPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 		upperPanelLayout.setVerticalGroup(upperPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 				.addGroup(upperPanelLayout.createSequentialGroup().addGap(39, 39, 39).addComponent(lblTitle)
 						.addGap(34, 34, 34)
@@ -180,12 +196,12 @@ public class MainFrame extends JFrame {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory(new File("C:/"));
 		int response = fileChooser.showOpenDialog(null);
-		if(response == JFileChooser.APPROVE_OPTION) {
+		if (response == JFileChooser.APPROVE_OPTION) {
 			File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
 			String activityName = file.getName().substring(0, file.getName().indexOf("."));
 			System.out.println(file.getAbsolutePath() + "\n " + activityName);
 			controller.addNewActivity(activityName, file.getAbsolutePath());
-		}		
+		}
 	}
 
 	private void openUserSettings() {
@@ -197,6 +213,7 @@ public class MainFrame extends JFrame {
 		txtCurrentActivity.setText("Current Activity: " + activityName);
 		txtCurrentActivity.addMouseListener(new AutoEraseListener(txtCurrentActivity.getText(), txtCurrentActivity));
 		controller.setCurrentActivity(activityName);
+
 	}
 
 	private void showGraph() {
@@ -205,9 +222,10 @@ public class MainFrame extends JFrame {
 
 	private void editActivity() {
 		controller.changeActivityName(activityName, txtCurrentActivity.getText());
+
 	}
 
-	private void removeActivity() {
+	private void removeActivity() { //Now it takes in activity name, to change in the future
 		controller.removeActivity(cbxActivities.getItemAt(cbxActivities.getSelectedIndex()));
 	}
 }

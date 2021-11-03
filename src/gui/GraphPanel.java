@@ -23,6 +23,7 @@ public class GraphPanel extends JPanel {
 	private int padding = 25;
 	private int labelPadding = 25;
 	private JLabel lblTitle;
+	private JLabel lblAverage; 
 	private Color lineColor;
 	private Color pointColor = new Color(100, 100, 100, 180);
 	private Color gridColor = new Color(200, 200, 200, 200);
@@ -31,10 +32,21 @@ public class GraphPanel extends JPanel {
 	private int numberYDivisions = 10;
 	private List<Double> scores;
 	private List<Double> seconds;
+	private double average;
+	
 	public GraphPanel(List<Double> scores, List<Double> seconds, Color color, String title) {
 		this.lineColor = color;
 		this.seconds = seconds;
+
 		this.lblTitle = new JLabel(title);
+		if(title != "Distance") {
+			for(int i = 0; i < scores.size(); i++) {
+				average += scores.get(i);
+			}
+			average /= scores.size();
+			lblAverage.setText(Double.toString(average));
+			this.add(lblAverage);
+		}
 		this.add(lblTitle);
 		this.scores =scores;
 
