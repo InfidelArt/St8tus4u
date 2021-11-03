@@ -47,7 +47,7 @@ public class UserSettingsFrame extends JFrame {
 		txtAge = new JTextField(TXT_AGE_STANDARD_TEXT);
 		cbxGender = new JComboBox<>();
 		lblBottom = new JLabel();
-
+		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		StyleComponents.styleJPanel(mainPanel);
