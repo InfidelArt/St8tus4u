@@ -106,12 +106,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 	@Override
 	public String[][] getUserActivities() throws DataRetrievalException {
 
-		String[][] activities = new String[][] {{"1", "Göteborgsloppet", "2020-03-04", "Göteborg", "24.2", "203.0", "00:53:49", "13:05:00"},
-			{"2", "Stockholmssträckan", "2021-06-02", "Stockholm", "31.1", "311.0", "01:49:20", "16:00:00"},
-			{"3", "Valbomaraton", "2021-07-14", "Valbo", "28.2", "299.3", "01:11:42", "15:30:12"}};
-												
-		return activities;
-		/*
+	
+		
 		ArrayList<Activity> activities = sessionHandler.getUserActivities();
 		
 		String[][] returnString = new String[activities.size()][8];
@@ -121,7 +117,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 		}
 		
 		return returnString;	
-		*/
+		
 	}
 
 	@Override

@@ -23,35 +23,18 @@ public class TestMain {
 	public static void main(String[] args) throws DataEntryException, IOException, InvalidTimeException, InvalidDateException {
 		// TODO Auto-generated method stub
 		ApplicationController controller = new ApplicationController();	
-	
-		try {
-			controller.logIn("Test2", "aahaaa");
-		} catch (FailedLoginException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-		controller.addNewActivity("Test activity 5", "test activity 3.csv");
 		
-		try {
-			
-			String[][] list = controller.getUserActivities();
-			
-			for (String[] thing : list) {
-				System.out.println(Arrays.toString(thing));
+		
+			try {
+				controller.logIn("Test2", "aahaaa");
+			} catch (FailedLoginException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-			controller.removeActivity(20);
-			
-			list = controller.getUserActivities();
-			for (String[] thing : list) {
-				System.out.println(Arrays.toString(thing));
-			}
-			
-		} catch (DataRetrievalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
+		
+		String userDataUsername = controller.getUserData()[0];
 		
 		
 		
