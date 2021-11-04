@@ -158,9 +158,4 @@ public class ActivityDao {
 		}		
 	}
 
-	public Object save(Object t) throws DataEntryException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -109,6 +109,7 @@ public class LoginFrame extends JFrame {
 		try {
 			controller.logIn(username, password);
 		} catch (FailedLoginException e) {
+			
 		}
 	}
 
