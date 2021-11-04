@@ -70,7 +70,7 @@ public interface ApplicationControllerInterface {
 	 * @throws InvalidTimeException 
 	 * @throws IOException 
 	 */
-	public String[][] getActivityData() throws IOException, InvalidTimeException, InvalidDateException;
+	public String[][] getActivityData(int id) throws IOException, InvalidTimeException, InvalidDateException;
 	
 	/**
 	 * Adds a new activity to the user's list of activities. 

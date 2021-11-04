@@ -34,7 +34,7 @@ public class GraphFrame extends JFrame {
 		List<Double> scoresDistance = new ArrayList<>();
 		List<Double> scoresHeartRate = new ArrayList<>();
 		List<Double> scoresCadence = new ArrayList<>();
-		System.out.print(currentActivity.length);
+		//System.out.print(currentActivity.length);
 		for (int i = 0; i < currentActivity.length; i++) {
 			scoresSpeed.add(Double.parseDouble(currentActivity[i][7]));
 			scoresDistance.add(Double.parseDouble(currentActivity[i][5]));

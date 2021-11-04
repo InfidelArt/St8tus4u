@@ -67,7 +67,7 @@ public class ActivityDao implements DaoInterface {
 					"INSERT INTO activity_log (activity_id, time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadence) "
 					+ valuesString
 					);
-			int row = 1;
+			int row = 0;
 			for (int i = 0; i < activity.getActivityLog().size() * 10; i = i + 10) {
 				preparedStatement.setInt(i + 1, generatedId);
 				preparedStatement.setString(i + 2, log.get(row).getTime().toString());

@@ -31,9 +31,7 @@ public class TestMain {
 			e.printStackTrace();
 		}
 		*/
-		for (String[] array : controller.getActivityData()) {
-			System.out.println(Arrays.toString(array));
-		}
+		
 		
 		/*
 		SessionHandler sessionHandler = new SessionHandler();
