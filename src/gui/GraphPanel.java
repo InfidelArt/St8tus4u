@@ -39,7 +39,6 @@ public class GraphPanel extends JPanel {
 			throws IOException, InvalidTimeException, InvalidDateException {
 		this.color = color;
 
-		this.lblTitle = new JLabel(title);
 		if (title != "Distance") {
 			for (int i = 0; i < scores.size(); i++) {
 				average += scores.get(i);
@@ -49,8 +48,10 @@ public class GraphPanel extends JPanel {
 			lblAverage = new JLabel();
 			lblAverage.setText("Average " + title + ": " + Double.toString(average));
 			this.add(lblAverage);
+		} else {
+			this.lblTitle = new JLabel(title);
+			this.add(lblTitle);
 		}
-		this.add(lblTitle);
 		this.scores = scores;
 
 	}
@@ -100,14 +101,10 @@ public class GraphPanel extends JPanel {
 			if (scores.size() > 1) {
 				int x0 = i * (getWidth() - padding * 2 - labelPadding) / (scores.size() - 1) + padding + labelPadding;
 				int x1 = x0;
-				int y0 = getHeight() - padding - labelPadding;
-				int y1 = y0 - pointWidth;
 				if ((i % ((int) ((scores.size() / 20.0)) + 1)) == 0) {
 					g2.setColor(gridColor);
-					g2.drawLine(x0, getHeight() - padding - labelPadding - 1 - pointWidth, x1, padding);
-					g2.setColor(Color.BLACK);
+					g2.drawLine(x0, getHeight() - padding - labelPadding, x1, padding);
 				}
-				g2.drawLine(x0, y0, x1, y1);
 			}
 		}
 

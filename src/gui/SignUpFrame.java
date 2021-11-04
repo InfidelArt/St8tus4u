@@ -40,12 +40,12 @@ public class SignUpFrame extends JFrame {
 		this.setTitle("Sign Up Window");
 		bottomPanel = new JPanel();
 		signUpPanel = new JPanel();
-		btnCreateAcc = new JButton("Create Account");
+		btnCreateAcc = new DefaultButton("Create Account");
 		btnCreateAcc.addActionListener(e -> createAccount());
 		lblTitle = new JLabel("Fill User Data");
 		lblBottom = new JLabel();
-		txtUsername = new JTextField("Username");
-		txtPassword = new JPasswordField("Password");
+		txtUsername = new DefaultTextBox("Username");
+		txtPassword = new DefaultPasswordField("Password");
 		txtUsername.addMouseListener(new AutoEraseListener(TXT_USERNAME_STANDARD_TEXT, txtUsername));
 		txtPassword.addMouseListener(new AutoEraseListener(TXT_PASSWORD_STANDARD_TEXT, txtPassword));
 		lblGender = new JLabel("Gender");	
@@ -54,12 +54,10 @@ public class SignUpFrame extends JFrame {
 		StyleComponents.styleDefaultLabel(lblGender);
 		StyleComponents.styleJPanel(signUpPanel);
 		StyleComponents.styleBottomLabel(lblBottom);
-		StyleComponents.styleDefaultButton(btnCreateAcc);
 		StyleComponents.styleDefaultLabel(lblTitle);
 		StyleComponents.styleDefaultLabel(lblGender);
-		StyleComponents.styleDefaultTextBox(txtUsername);
-		StyleComponents.styleDefaultTextBox(txtPassword);
 		StyleComponents.styleTitleLabel(lblTitle);
+		StyleComponents.styleDefaultJComboBox(cbxGenderPicker);
 		
 		cbxGenderPicker
 				.setModel(new DefaultComboBoxModel<>(new String[] { "Select Your Gender", "Male", "Female", "Other" }));

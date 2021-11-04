@@ -41,22 +41,19 @@ public class LoginFrame extends JFrame {
 	private void initComponents() throws IOException, InvalidTimeException, InvalidDateException {
 		this.setTitle("St8tus4U");
 		loginPanel = new JPanel();
-		txtUsername = new JTextField(TXT_USERNAME_STANDARD_TEXT);
-		txtPassword = new JPasswordField(TXT_PASSWORD_STANDARD_TEXT);
+		txtUsername = new DefaultTextBox(TXT_USERNAME_STANDARD_TEXT);
+		txtPassword = new DefaultPasswordField(TXT_PASSWORD_STANDARD_TEXT);
 		txtUsername.addMouseListener(new AutoEraseListener(TXT_USERNAME_STANDARD_TEXT, txtUsername));
 		txtPassword.addMouseListener(new AutoEraseListener(TXT_PASSWORD_STANDARD_TEXT, txtPassword));
-		btnSignUp = new JButton("Sign Up");
-		btnSignIn = new JButton("Sign In");
+		btnSignUp = new DefaultButton("Sign Up");
+		btnSignIn = new DefaultButton("Sign In");
 		lblTitle = new JLabel("ST8TUS4U");
 		lblBottom = new JLabel();
 		btnSignUp.addActionListener(e -> loginFrameSignUp());
 		btnSignIn.addActionListener(e -> loginFrameSignIn());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		StyleComponents.styleJPanel(loginPanel);
-		StyleComponents.styleDefaultTextBox(txtUsername);
 		StyleComponents.styleDefaultTextBox(txtPassword);
-		StyleComponents.styleDefaultButton(btnSignUp);
-		StyleComponents.styleDefaultButton(btnSignIn);
 		StyleComponents.styleTitleLabel(lblTitle);
 		StyleComponents.styleBottomLabel(lblBottom);
 		

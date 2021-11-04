@@ -66,14 +66,14 @@ public class MainFrame extends JFrame {
 		upperPanel = new JPanel();
 		lblTitle = new JLabel(userData);
 		cbxActivities = new JComboBox<>();
-		txtCurrentActivity = new JTextField();
+		txtCurrentActivity = new DefaultTextBox("");
 		txtCurrentActivity.addMouseListener(new AutoEraseListener(activityName, txtCurrentActivity));
-		btnRemove = new JButton("Remove");
+		btnRemove = new MainFrameButton("Remove");
 		btnRemove.addActionListener(e -> removeActivity());
-		btnEdit = new JButton("Edit");
+		btnEdit = new MainFrameButton("Edit");
 		btnEdit.addActionListener(e -> editActivity());
 		btnEdit.setToolTipText("Saves the changes you've made in the activity tables");
-		btnGraph = new JButton("Show Graph");
+		btnGraph = new MainFrameButton("Show Graph");
 		btnGraph.addActionListener(e -> {
 			try {
 				showGraph();
@@ -82,11 +82,11 @@ public class MainFrame extends JFrame {
 				e2.printStackTrace();
 			}
 		});
-		btnSelect = new JButton("Select");
+		btnSelect = new MainFrameButton("Select");
 		btnSelect.addActionListener(e -> selectActivity());
-		btnUserSettings = new JButton("User Settings");
+		btnUserSettings = new MainFrameButton("User Settings");
 		btnUserSettings.addActionListener(e -> openUserSettings());
-		btnImport = new JButton("Import Activity");
+		btnImport = new MainFrameButton("Import Activity");
 		btnImport.setToolTipText("Never include character '.' in file name");
 		btnImport.addActionListener(e -> {
 			try {
@@ -107,17 +107,9 @@ public class MainFrame extends JFrame {
 		setResizable(false);
 		StyleComponents.styleJPanel(upperPanel);
 		StyleComponents.styleDefaultLabel(lblTitle);
-
+		StyleComponents.styleDefaultJComboBox(cbxActivities);
 		cbxActivities.setModel(new DefaultComboBoxModel<>(new String[] { "Example Acitivity 1", "Example Acitivity 2",
 				"Example Acitivity 3", "Example Acitivity 4" })); // Will be filled with activities from activity list
-																	// later on
-		StyleComponents.styleDefaultTextBox(txtCurrentActivity);
-		StyleComponents.styleMainFrameButton(btnRemove);
-		StyleComponents.styleMainFrameButton(btnEdit);
-		StyleComponents.styleMainFrameButton(btnGraph);
-		StyleComponents.styleMainFrameButton(btnSelect);
-		StyleComponents.styleMainFrameButton(btnUserSettings);
-		StyleComponents.styleMainFrameButton(btnImport);
 		StyleComponents.styleJPanel(borderPanel);
 		StyleComponents.styleBorderPanel(borderPanel);
 		currentActivityData = controller.getActivityData();

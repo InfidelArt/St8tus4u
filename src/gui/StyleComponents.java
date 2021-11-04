@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,10 +19,11 @@ import javax.swing.SwingConstants;
 
 public class StyleComponents{
 	private static Color primaryColor = new Color(240, 120, 0);
+	private static Color hoverColor = new Color(255, 166, 77);
 	private static Color secondaryColor = new Color(246, 249, 239);
 	private static Color tertiaryColor = new Color(50, 66, 161);
 	private static Font textFont = new Font("Verdana", 1, 14);
-	private static Font buttonTextFont = new Font("Verdana", 1, 10);
+	private static Font smallerTextFont = new Font("Verdana", 1, 10);
 	private static Font titleFont = new Font("Verdana", 1, 32);
 	private static MatteBorder txtFieldBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, secondaryColor);
 	private static Border buttonBorder = BorderFactory.createLineBorder(secondaryColor, 2);
@@ -35,21 +37,36 @@ public class StyleComponents{
 		return button;
 	}
 	
+	static JButton styleDefaultButtonHover(JButton button) {
+		button.setBackground(hoverColor);
+		return button;
+	}
+	
 	static JButton styleMainFrameButton(JButton button) {
 		button.setBackground(primaryColor);
-		button.setFont(buttonTextFont);
+		button.setFont(smallerTextFont);
 		button.setForeground(secondaryColor);
 		button.setBorder(buttonBorder);
 		return button;
 	}
 	
-	static JTextField styleDefaultTextBox(JTextField txtbox) {
-		txtbox.setBackground(primaryColor);
-		txtbox.setFont(textFont);
-		txtbox.setForeground(secondaryColor);
-		txtbox.setHorizontalAlignment(JTextField.LEFT);
-		txtbox.setBorder(txtFieldBorder);
-		return txtbox;
+	static JButton styleMainFrameButtonHover(JButton button) {
+		button.setBackground(hoverColor);
+		return button;
+	}
+	
+	static JTextField styleDefaultTextBox(JTextField txtBox) {
+		txtBox.setBackground(primaryColor);
+		txtBox.setFont(textFont);
+		txtBox.setForeground(secondaryColor);
+		txtBox.setHorizontalAlignment(JTextField.LEFT);
+		txtBox.setBorder(txtFieldBorder);
+		return txtBox;
+	}
+	
+	static JTextField styleDefaultTextBoxHover(JTextField txtBox) {
+		txtBox.setBackground(hoverColor);
+		return txtBox;
 	}
 	
 	static JLabel styleDefaultLabel(JLabel lbl) {
@@ -87,5 +104,19 @@ public class StyleComponents{
 	static JTable styleActivityTable(JTable table) {
 		table.setBackground(secondaryColor);
 		return table;
+	}
+	
+	static JComboBox styleDefaultJComboBox(JComboBox cbx) {
+		cbx.setBackground(primaryColor);
+		cbx.setFont(smallerTextFont);
+		cbx.setForeground(secondaryColor);
+		cbx.setBorder(buttonBorder);
+		cbx.setRenderer(new DefaultComboBoxRenderer());
+		return cbx;
+	}
+	
+	static JLabel styleDefaultLabelHover(JLabel lbl) {
+		lbl.setBackground(hoverColor);
+		return lbl;
 	}
 }
