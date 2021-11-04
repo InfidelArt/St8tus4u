@@ -136,9 +136,26 @@ public class ActivityDao {
 		
 	}
 
-	public void delete(Object t) {
-		// TODO Auto-generated method stub
+	public void delete(int id) throws DataEntryException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		
+		try {
+			preparedStatement = dbConnectionManager.prepareStatement(
+					"DELETE FROM activity_list "
+					+ "WHERE activity_id=" + id + ";"
+					);
+			preparedStatement.execute();
+			
+			preparedStatement = dbConnectionManager.prepareStatement(
+					"DELETE FROM activity_log "
+					+ "WHERE activity_id=" + id + ";"
+					);
+			preparedStatement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DataEntryException("Could not delete the activity: " + e.getMessage());
+		}		
 	}
 
 	public Object save(Object t) throws DataEntryException {

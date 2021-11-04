@@ -143,9 +143,12 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public void removeActivity(String activityID) {
-		// TODO
-
+	public void removeActivity(String activityID) throws DataEntryException {
+		int id = Integer.parseInt(activityID);
+		sessionHandler.removeActivity(id);
+	}
+	public void removeActivity(int activityID) throws DataEntryException {
+		sessionHandler.removeActivity(activityID);
 	}
 
 	public void updateUser(String password, String gender) throws DataEntryException {

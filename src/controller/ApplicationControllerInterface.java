@@ -97,9 +97,10 @@ public interface ApplicationControllerInterface {
 	 * Removes an activity from the user's list of activities.
 	 * @param activityID
 	 * @return true if the operation was successful, false if not.
+	 * @throws DataEntryException 
 	 */
 	
-	public void removeActivity(String activityID);
+	public void removeActivity(String activityID) throws DataEntryException;
 	
 	/**
 	 * @param age 

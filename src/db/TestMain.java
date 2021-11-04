@@ -34,8 +34,16 @@ public class TestMain {
 		controller.addNewActivity("Test activity 5", "test activity 3.csv");
 		
 		try {
-			String[][] list = controller.getActivityData(13);
 			
+			String[][] list = controller.getUserActivities();
+			
+			for (String[] thing : list) {
+				System.out.println(Arrays.toString(thing));
+			}
+			
+			controller.removeActivity(20);
+			
+			list = controller.getUserActivities();
 			for (String[] thing : list) {
 				System.out.println(Arrays.toString(thing));
 			}

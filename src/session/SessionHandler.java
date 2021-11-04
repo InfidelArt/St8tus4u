@@ -78,7 +78,9 @@ public class SessionHandler {
 	}
 	public ArrayList<ActivitySnapshot> getActivityLog(int activityId) throws DataRetrievalException {
 		return activityDao.get(activityId);
-		
+	}
+	public void removeActivity (int activityId) throws DataEntryException {
+		activityDao.delete(activityId);
 	}
 	
 	public ArrayList<ActivitySnapshot> importLog(String pathToCSV)
