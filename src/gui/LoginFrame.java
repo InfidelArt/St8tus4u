@@ -39,7 +39,7 @@ public class LoginFrame extends JFrame {
 	}
 
 	private void initComponents() throws IOException, InvalidTimeException, InvalidDateException {
-		this.setTitle("St8tus4U");
+		this.setTitle("GIZMO2020");
 		loginPanel = new JPanel();
 		txtUsername = new DefaultTextBox(TXT_USERNAME_STANDARD_TEXT);
 		txtPassword = new DefaultPasswordField(TXT_PASSWORD_STANDARD_TEXT);
@@ -47,7 +47,7 @@ public class LoginFrame extends JFrame {
 		txtPassword.addMouseListener(new AutoEraseListener(TXT_PASSWORD_STANDARD_TEXT, txtPassword));
 		btnSignUp = new DefaultButton("Sign Up");
 		btnSignIn = new DefaultButton("Sign In");
-		lblTitle = new JLabel("ST8TUS4U");
+		lblTitle = new JLabel("GIZMO2020");
 		lblBottom = new JLabel();
 		btnSignUp.addActionListener(e -> loginFrameSignUp());
 		btnSignIn.addActionListener(e -> loginFrameSignIn());
