@@ -76,6 +76,10 @@ public class SessionHandler {
 	public ArrayList<Activity> getUserActivities() throws DataRetrievalException {
 		return activityDao.getAll(getLoggedInUser().getId());
 	}
+	public ArrayList<ActivitySnapshot> getActivityLog(int activityId) throws DataRetrievalException {
+		return activityDao.get(activityId);
+		
+	}
 	
 	public ArrayList<ActivitySnapshot> importLog(String pathToCSV)
 			throws IOException, InvalidTimeException, InvalidDateException {

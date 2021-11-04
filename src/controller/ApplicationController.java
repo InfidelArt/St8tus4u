@@ -117,41 +117,13 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public String[][] getActivityData(int id) throws IOException, InvalidTimeException, InvalidDateException {
-		if (id == 1) {
-			ArrayList<ActivitySnapshot> list = sessionHandler.importLog("test activity.csv");
-			String[][] returnArray = new String[list.size()][8];
-			for (int i = 0; i < list.size(); i++) {
-				returnArray[i] = list.get(i).toArray();
-			}		
-			return returnArray;
-		}
-		else if (id == 2) {
-			ArrayList<ActivitySnapshot> list = sessionHandler.importLog("test activity 2.csv");
-			String[][] returnArray = new String[list.size()][8];
-			for (int i = 0; i < list.size(); i++) {
-				returnArray[i] = list.get(i).toArray();
-			}		
-			return returnArray;
-		}
-		else if  (id == 3) {
-			ArrayList<ActivitySnapshot> list = sessionHandler.importLog("test activity 3.csv");
-			String[][] returnArray = new String[list.size()][8];
-			for (int i = 0; i < list.size(); i++) {
-				returnArray[i] = list.get(i).toArray();
-			}		
-			return returnArray;
-		}
-		/*
-		ArrayList<ActivitySnapshot> list = sessionHandler.importLog("test activity.csv");
+	public String[][] getActivityData(int id) throws IOException, DataRetrievalException {
+		ArrayList<ActivitySnapshot> list = sessionHandler.getActivityLog(id);
 		String[][] returnArray = new String[list.size()][8];
 		for (int i = 0; i < list.size(); i++) {
 			returnArray[i] = list.get(i).toArray();
-		}
-		*/
-		else {
-			return null;
-		}
+		}		
+		return returnArray;
 	}
 	public String[][] getActivityData() throws IOException, InvalidTimeException, InvalidDateException {
 		ArrayList<ActivitySnapshot> list = sessionHandler.importLog("test activity.csv");

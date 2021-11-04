@@ -34,7 +34,7 @@ public class ActivitySnapshot {
 		this.cadence = cadence;
 		
 	}
-public ActivitySnapshot(Time time, Date date, int elapsedTime, double longitude, double latitude, double altitude, double distance, double heartRate, double speed, double cadence) {
+	public ActivitySnapshot(Time time, Date date, int elapsedTime, double longitude, double latitude, double altitude, double distance, double heartRate, double speed, double cadence) {
 		
 		this.time = time;
 		this.date = date;
@@ -47,6 +47,17 @@ public ActivitySnapshot(Time time, Date date, int elapsedTime, double longitude,
 		this.speed = speed;
 		this.cadence = cadence;
 		
+	}
+	public ActivitySnapshot(Time time, int elapsedTime, double longitude, double latitude, double altitude, double distance, double heartRate, double speed, double cadence) {
+		this.time = time;
+		this.elapsedTime = elapsedTime;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.altitude = altitude;
+		this.distance = distance;
+		this.heartRate = heartRate;
+		this.speed = speed;
+		this.cadence = cadence;
 	}
 	
 	public int getActivityId() {

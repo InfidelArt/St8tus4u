@@ -34,11 +34,11 @@ public class TestMain {
 		controller.addNewActivity("Test activity 5", "test activity 3.csv");
 		
 		try {
-			String[][] list = controller.getUserActivities();
+			String[][] list = controller.getActivityData(13);
 			
 			for (String[] thing : list) {
 				System.out.println(Arrays.toString(thing));
-			} 
+			}
 			
 		} catch (DataRetrievalException e) {
 			// TODO Auto-generated catch block

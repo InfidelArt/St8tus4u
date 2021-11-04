@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import db.DbConnectionManager;
-
+import time.InvalidTimeException;
+import time.Time;
 import activity.Activity;
 import activity.ActivitySnapshot;
 import db.DataEntryException;
@@ -20,9 +21,29 @@ public class ActivityDao {
 		dbConnectionManager = DbConnectionManager.getInstance();
 	}
 	
-	public Activity get(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<ActivitySnapshot> get(int id) throws DataRetrievalException {
+		
+		ArrayList<ActivitySnapshot> list = new ArrayList<>();
+		
+		try {
+			ResultSet resultSet = dbConnectionManager.excecuteQuery(
+					"SELECT time, elapsed_time, longitude, latitude, altitude, distance, heart_rate, speed, cadence "
+					+ "FROM activity_log "
+					+ "WHERE activity_id=" + id + ";"
+					);
+			while (resultSet.next()) {
+				ActivitySnapshot row = new ActivitySnapshot(new Time(resultSet.getString(1)), resultSet.getInt(2), resultSet.getDouble(3), resultSet.getDouble(4), resultSet.getDouble(5), resultSet.getDouble(6), resultSet.getDouble(7), resultSet.getDouble(8), resultSet.getDouble(9));
+				list.add(row);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DataRetrievalException("Could not retrieve activity log from database.");
+		} catch (InvalidTimeException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 	public ArrayList<Activity> getAll(int userId) throws DataRetrievalException {
