@@ -10,8 +10,9 @@ import db.DbConnectionManager;
 import activity.Activity;
 import activity.ActivitySnapshot;
 import db.DataEntryException;
+import db.DataRetrievalException;
 
-public class ActivityDao implements DaoInterface {
+public class ActivityDao {
 	
 	DbConnectionManager dbConnectionManager;
 	
@@ -19,16 +20,30 @@ public class ActivityDao implements DaoInterface {
 		dbConnectionManager = DbConnectionManager.getInstance();
 	}
 	
-	@Override
 	public Activity get(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Activity> getAll(int userId) throws DataRetrievalException {
+		ArrayList<Activity> list = new ArrayList<>();
+		
+		try {
+			ResultSet resultSet = dbConnectionManager.excecuteQuery(
+					"SELECT activity_id, activity_name, start_date, start_location, avarege_speed, avarege_heart_rate, total_time, start_time "
+					+ "FROM activity_list "
+					+ "WHERE user_id=" + userId +";"
+					);
+			while (resultSet.next()) {
+				list.add(new Activity(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getDouble(5), resultSet.getDouble(6), resultSet.getString(7), resultSet.getString(8)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DataRetrievalException("Could not get activities from database.");
+		}
+		
+		
+		return list;
 	}
 	
 	public Activity save(int userId, Activity activity) throws DataEntryException {
@@ -79,6 +94,8 @@ public class ActivityDao implements DaoInterface {
 				preparedStatement.setDouble(i + 8, log.get(row).getHeartRate());
 				preparedStatement.setDouble(i + 9, log.get(row).getSpeed());
 				preparedStatement.setDouble(i + 10, log.get(row).getCadence());
+				
+				row = row + 1;
 			}
 			
 			preparedStatement.execute();
@@ -93,19 +110,16 @@ public class ActivityDao implements DaoInterface {
 		return null;
 	}
 
-	@Override
 	public void update(Object t) throws DataEntryException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void delete(Object t) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public Object save(Object t) throws DataEntryException {
 		// TODO Auto-generated method stub
 		return null;

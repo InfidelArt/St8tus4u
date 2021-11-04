@@ -8,6 +8,7 @@ import javax.security.auth.login.FailedLoginException;
 
 import date.InvalidDateException;
 import db.DataEntryException;
+import db.DataRetrievalException;
 import time.InvalidTimeException;
 import user.User;
 
@@ -60,8 +61,9 @@ public interface ApplicationControllerInterface {
 	 * Gets a list of all the user's activities
 	 * @return An array of arrays, where each array is an individual activity. An array will have the following structure:
 	 * [ActivityID, ActivityName, StartDate, StartLocation, AvaregeSpeed, AvaregeHeartRate, TotalTime, StartTime]
+	 * @throws DataRetrievalException 
 	 */
-	public String[][] getUserActivities();
+	public String[][] getUserActivities() throws DataRetrievalException;
 	
 	/**
 	 * @return the log of a specific activity as an array of arrays, where each array contains data about a specific interval. An array will have the following structure:

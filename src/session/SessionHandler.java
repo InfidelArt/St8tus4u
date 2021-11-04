@@ -17,6 +17,7 @@ import dao.UserDao;
 import date.Date;
 import date.InvalidDateException;
 import db.DataEntryException;
+import db.DataRetrievalException;
 import time.InvalidTimeException;
 import time.Time;
 import user.User;
@@ -72,7 +73,10 @@ public class SessionHandler {
 	public void addActivity(Activity activity) throws DataEntryException {
 		activityDao.save(getLoggedInUser().getId(), activity);
 	}
-
+	public ArrayList<Activity> getUserActivities() throws DataRetrievalException {
+		return activityDao.getAll(getLoggedInUser().getId());
+	}
+	
 	public ArrayList<ActivitySnapshot> importLog(String pathToCSV)
 			throws IOException, InvalidTimeException, InvalidDateException {
 

@@ -3,6 +3,8 @@ package activity;
 import java.util.ArrayList;
 
 import date.Date;
+import date.InvalidDateException;
+import time.InvalidTimeException;
 import time.Time;
 
 public class Activity {
@@ -10,7 +12,7 @@ public class Activity {
 	private int id;
 	private String activityName;
 	private Date startDate;
-	private String startLocation;
+	private Object startLocation;
 	private double avaregeSpeed;
 	private double avaregeHeartRate;
 	private Time totalTime;
@@ -48,6 +50,31 @@ public class Activity {
 		this.startLocation = startLocation;
 	}
 	
+	public Activity(int id, String activity_name, String start_date, Object startLocation, double avarege_speed, double avarege_heart_rate, String total_time, String start_time) {
+		this.id = id;
+		if (activity_name != null) {
+			this.setStartLocation((String) activityName);
+		}
+		setActivityName(activity_name);
+		this.avaregeSpeed = avarege_speed;
+		this.avaregeHeartRate = avarege_heart_rate;
+		try {
+			this.startDate = new Date(start_date);
+			this.startTime = new Time(start_time);
+			this.totalTime = new Time(total_time);
+		} catch (InvalidTimeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidDateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void setStartLocation(String location) {
+		this.startLocation = location;		
+	}
+
 	public ArrayList<ActivitySnapshot> getActivityLog() {
 		return this.activityLog;
 	}
@@ -64,7 +91,7 @@ public class Activity {
 		return this.startDate;
 	}
 	public String getStartLocation() {
-		return this.startLocation;
+		return (String) this.startLocation;
 	}
 	public double getAvaregeSpeed() {
 		return this.avaregeSpeed;
@@ -88,7 +115,7 @@ public class Activity {
 		
 		return avarege;
 	}
-	private double calculateAvaregeHeartRate() { // round to 2 decimals
+	private double calculateAvaregeHeartRate() { // TODO round to 2 decimals
 		double total = 0;
 		for (ActivitySnapshot snapshot : activityLog) {
 			total = total + snapshot.getHeartRate();
@@ -106,5 +133,8 @@ public class Activity {
 	private Date createStartDate() {
 		return activityLog.get(0).getDate();
 	}
-	
+	public String[] toStringArray() {	
+		return new String[] {Integer.toString(id), getActivityName(), getStartDate().toString(), getStartLocation(), getAvaregeSpeed()+"", getAvaregeHeartRate()+"", getTotalTime().toString(), getStartTime().toString()};
+		
+	}
 }

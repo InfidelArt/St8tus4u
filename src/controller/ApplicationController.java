@@ -12,6 +12,7 @@ import activity.Activity;
 import activity.ActivitySnapshot;
 import date.InvalidDateException;
 import db.DataEntryException;
+import db.DataRetrievalException;
 import gui.GraphFrame;
 import gui.LoginFrame;
 import gui.MainFrame;
@@ -103,13 +104,16 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public String[][] getUserActivities() {
+	public String[][] getUserActivities() throws DataRetrievalException {
+		ArrayList<Activity> activities = sessionHandler.getUserActivities();
 		
-		String[][] activities = new String[][] {{"1", "Göteborgsloppet", "2020-03-04", "Göteborg", "24.2", "203.0", "00:53:49", "13:05:00"},
-			{"2", "Stockholmssträckan", "2021-06-02", "Stockholm", "31.1", "311.0", "01:49:20", "16:00:00"},
-			{"3", "Valbomaraton", "2021-07-14", "Valbo", "28.2", "299.3", "01:11:42", "15:30:12"}};
-												
-		return activities;
+		String[][] returnString = new String[activities.size()][8];
+		
+		for (int i = 0; i < activities.size(); i++) {
+			returnString[i] = activities.get(i).toStringArray();
+		}
+		
+		return returnString;	
 	}
 
 	@Override
@@ -149,7 +153,14 @@ public class ApplicationController implements ApplicationControllerInterface {
 			return null;
 		}
 	}
-	
+	public String[][] getActivityData() throws IOException, InvalidTimeException, InvalidDateException {
+		ArrayList<ActivitySnapshot> list = sessionHandler.importLog("test activity.csv");
+		String[][] returnArray = new String[list.size()][8];
+		for (int i = 0; i < list.size(); i++) {
+			returnArray[i] = list.get(i).toArray();
+		}		
+		return returnArray;
+	}
 	@Override
 	public void addNewActivity(String nameOfActivity, String pathToCSVFile)
 			throws IOException, InvalidTimeException, InvalidDateException, DataEntryException {
