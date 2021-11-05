@@ -151,7 +151,7 @@ public class UserSettingsFrame extends JFrame {
 		if(!txtLength.getText().equals("Length")) {
 			controller.setLength(Double.parseDouble(txtLength.getText()));
 		}
-		if(!txtUsername.getText().equals("Username")) {
+		if(!txtUsername.getText().equals("Username")&& !txtUsername.getText().equals(controller.getUserData()[1])) {
 		controller.setUsername(txtUsername.getText());
 		} if(cbxGender.getSelectedIndex() != 0) {
 		controller.setGender(cbxGender.getItemAt(cbxGender.getSelectedIndex()));
