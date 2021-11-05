@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -134,11 +135,12 @@ public class SignUpFrame extends JFrame {
 			controller.registerNewAccount(txtUsername.getText(), txtPassword.getPassword(), cbxGenderPicker.getItemAt(cbxGenderPicker.getSelectedIndex()));
 			this.setVisible(false);
 		} catch (InputMismatchException e) {
-			// TODO Auto-generated catch block
+			JFrame frame = new JFrame();
+			JOptionPane.showMessageDialog(frame, e.getMessage());
 			e.printStackTrace();
 		} catch (DataEntryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JFrame frame = new JFrame();
+			JOptionPane.showMessageDialog(frame, e.getMessage());
 		}
 	}
 }
