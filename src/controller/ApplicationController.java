@@ -59,7 +59,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 				logOut();
 			}
 		}, "Logout user on close"));
-		
+
 	}
 
 	public static void main(String[] args) throws IOException, InvalidTimeException, InvalidDateException {
@@ -70,7 +70,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public void logIn(String username, String password) throws FailedLoginException {
 		sessionHandler.logIn(username, password);
 		try {
-			new MainFrame(controller).setVisible(true);
+			mainFrame = new MainFrame(controller);
+			mainFrame.setVisible(true);
 		} catch (IOException | InvalidTimeException | InvalidDateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -105,19 +106,16 @@ public class ApplicationController implements ApplicationControllerInterface {
 
 	@Override
 	public String[][] getUserActivities() throws DataRetrievalException {
-
-	
-		
 		ArrayList<Activity> activities = sessionHandler.getUserActivities();
-		
+
 		String[][] returnString = new String[activities.size()][8];
-		
+
 		for (int i = 0; i < activities.size(); i++) {
 			returnString[i] = activities.get(i).toStringArray();
 		}
-		
-		return returnString;	
-		
+
+		return returnString;
+
 	}
 
 	@Override
@@ -126,17 +124,19 @@ public class ApplicationController implements ApplicationControllerInterface {
 		String[][] returnArray = new String[list.size()][8];
 		for (int i = 0; i < list.size(); i++) {
 			returnArray[i] = list.get(i).toArray();
-		}		
+		}
 		return returnArray;
 	}
+
 	public String[][] getActivityData() throws IOException, InvalidTimeException, InvalidDateException {
 		ArrayList<ActivitySnapshot> list = sessionHandler.importLog("test activity.csv");
 		String[][] returnArray = new String[list.size()][8];
 		for (int i = 0; i < list.size(); i++) {
 			returnArray[i] = list.get(i).toArray();
-		}		
+		}
 		return returnArray;
 	}
+
 	@Override
 	public void addNewActivity(String nameOfActivity, String pathToCSVFile)
 			throws IOException, InvalidTimeException, InvalidDateException, DataEntryException {
@@ -151,6 +151,7 @@ public class ApplicationController implements ApplicationControllerInterface {
 		int id = Integer.parseInt(activityID);
 		sessionHandler.removeActivity(id);
 	}
+
 	public void removeActivity(int activityID) throws DataEntryException {
 		sessionHandler.removeActivity(activityID);
 	}
@@ -169,31 +170,37 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public void setName(String name) throws DataEntryException {
 		sessionHandler.getLoggedInUser().setName(name);
 		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+		mainFrame.update();
 	}
 
 	public void setWeight(double weight) throws DataEntryException {
 		sessionHandler.getLoggedInUser().setWeight(weight);
 		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+		mainFrame.update();
 	}
 
 	public void setLength(double length) throws DataEntryException {
 		sessionHandler.getLoggedInUser().setLength(length);
 		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+		mainFrame.update();
 	}
 
 	public void setAge(int age) throws DataEntryException {
 		sessionHandler.getLoggedInUser().setAge(age);
 		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+		mainFrame.update();
 	}
 
 	public void setGender(String gender) throws DataEntryException {
 		sessionHandler.getLoggedInUser().setGender(gender);
 		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+		mainFrame.update();
 	}
 
 	public void setUsername(String username) throws DataEntryException {
 		sessionHandler.getLoggedInUser().setUsername(username);
 		sessionHandler.updateUser(sessionHandler.getLoggedInUser());
+		mainFrame.update();
 	}
 
 	@Override
@@ -243,8 +250,8 @@ public class ApplicationController implements ApplicationControllerInterface {
 		userSettings.setVisible(true);
 	}
 
-	public void showGraph() throws IOException, InvalidTimeException, InvalidDateException {
-		GraphFrame graphFrame = new GraphFrame(controller);
+	public void showGraph(int activityId) throws IOException, InvalidTimeException, InvalidDateException {
+		GraphFrame graphFrame = new GraphFrame(controller, activityId);
 	}
 
 	public void setCurrentActivity(String activityName) {

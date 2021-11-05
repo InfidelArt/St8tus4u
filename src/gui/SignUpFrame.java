@@ -132,6 +132,7 @@ public class SignUpFrame extends JFrame {
 	private void createAccount() {
 		try {
 			controller.registerNewAccount(txtUsername.getText(), txtPassword.getPassword(), cbxGenderPicker.getItemAt(cbxGenderPicker.getSelectedIndex()));
+			this.setVisible(false);
 		} catch (InputMismatchException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

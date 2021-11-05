@@ -82,6 +82,12 @@ public class MainFrame extends JFrame {
 		btnGraph = new MainFrameButton("Show Graph");
 		btnGraph.addActionListener(e -> {
 			try {
+				try {
+					selectActivity();
+				} catch (DataRetrievalException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				showGraph();
 			} catch (IOException | InvalidTimeException | InvalidDateException e2) {
 				// TODO Auto-generated catch block
@@ -118,22 +124,12 @@ public class MainFrame extends JFrame {
 		 */
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
+		StyleComponents.styleDefaultJComboBox(cbxActivities);
 		StyleComponents.styleJPanel(bottomPanel);
 		StyleComponents.styleDefaultLabel(lblUsername);
 		StyleComponents.styleDefaultLabel(lblDataOne);
 		StyleComponents.styleDefaultLabel(lblDataTwo);
-		try {
-			currentUserActivites = controller.getUserActivities();
-		} catch (DataRetrievalException e1) {
-			e1.printStackTrace();
-		}
-		activites = new ArrayList<String>();
-		for (int i = 0; i < currentUserActivites.length; i++) {
-			activites.add(currentUserActivites[i][0].toString() + "." + currentUserActivites[i][1].toString());
-		}
-		cbxActivityList = activites.toArray(new String[0]);
-		cbxActivities.setModel(new DefaultComboBoxModel<>(cbxActivityList)); // Will be filled with activities from
-																				// activity list
+		updateActivityList();
 		StyleComponents.styleJPanel(mainPanel);
 		StyleComponents.styleBorderPanel(mainPanel);
 		activityTable.setModel(new DefaultTableModel(
@@ -227,6 +223,7 @@ public class MainFrame extends JFrame {
 			String activityName = file.getName().substring(0, file.getName().indexOf("."));
 			System.out.println(file.getAbsolutePath() + "\n " + activityName);
 			controller.addNewActivity(activityName, file.getAbsolutePath());
+			updateActivityList();
 		}
 	}
 
@@ -253,12 +250,14 @@ public class MainFrame extends JFrame {
 	}
 
 	private void showGraph() throws IOException, InvalidTimeException, InvalidDateException {
-		controller.showGraph();
+		controller.showGraph(Integer.parseInt(activityId));
 	}
 
 	private void editActivity() {
 		controller.changeActivityName(activityName, txtCurrentActivity.getText());
-
+		txtCurrentActivity.setText("Current Activity: ");
+		txtCurrentActivity.addMouseListener(new AutoEraseListener(txtCurrentActivity.getText(), txtCurrentActivity));
+		updateActivityList();
 	}
 
 	private void removeActivity() { // Now it takes in activity name, to change in the future
@@ -269,8 +268,21 @@ public class MainFrame extends JFrame {
 			e.printStackTrace();
 		}
 	}
-
-	private void update() {
+	private void updateActivityList() {
+		try {
+			currentUserActivites = controller.getUserActivities();
+		} catch (DataRetrievalException e1) {
+			e1.printStackTrace();
+		}
+		
+		activites = new ArrayList<String>();
+		for (int i = 0; i < currentUserActivites.length; i++) {
+			activites.add(currentUserActivites[i][0].toString() + "." + currentUserActivites[i][1].toString());
+		}
+		cbxActivityList = activites.toArray(new String[0]);
+		cbxActivities.setModel(new DefaultComboBoxModel<>(cbxActivityList));
+	}
+	public void update() {
 		userDataUsername = controller.getUserData()[0];
 		userDataOne = "Weight: " + controller.getUserData()[2] + "kg Length: " + controller.getUserData()[3]
 				+ "cm Max Heartrate: " + controller.getUserData()[5];

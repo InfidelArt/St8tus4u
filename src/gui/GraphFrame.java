@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import controller.ApplicationController;
 import date.InvalidDateException;
+import db.DataRetrievalException;
 import time.InvalidTimeException;
 
 public class GraphFrame extends JFrame {
@@ -22,14 +23,21 @@ public class GraphFrame extends JFrame {
 	Color cadenceColor = new Color(3, 152, 252, 255);
 	private String[][] currentActivity;
 	ApplicationController controller;
+	int activityId;
 	double seconds;
-	public GraphFrame(ApplicationController controller) throws IOException, InvalidTimeException, InvalidDateException{
+	public GraphFrame(ApplicationController controller, int activityId) throws IOException, InvalidTimeException, InvalidDateException{
+		this.activityId = activityId;
 		this.controller = controller;
 		initComponents();
 	}
 
 	public void initComponents() throws IOException, InvalidTimeException, InvalidDateException {
-		currentActivity = controller.getActivityData();
+		try {
+			currentActivity = controller.getActivityData(activityId);
+		} catch (IOException | DataRetrievalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		List<Double> scoresSpeed = new ArrayList<>();
 		List<Double> scoresDistance = new ArrayList<>();
 		List<Double> scoresHeartRate = new ArrayList<>();
