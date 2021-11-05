@@ -127,9 +127,5 @@ public interface ApplicationControllerInterface {
 	 * Creates a user Account
 	 * @return true is operation was successful, false if not
 	 */
-	void signUp();
-	/**
-	 * Opens Sign Up Window
-	 */
 	void openSignUpWindow();
 }

@@ -15,6 +15,8 @@ import db.DataRetrievalException;
 import gui.GraphFrame;
 import gui.LoginFrame;
 import gui.MainFrame;
+import gui.MapDrawerFrame;
+import gui.ActivityStatsFrame;
 import gui.SignUpFrame;
 import gui.UserSettingsFrame;
 import session.SessionHandler;
@@ -105,11 +107,11 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public String[][] getUserActivities() throws DataRetrievalException {
 		ArrayList<Activity> activities = sessionHandler.getUserActivities();
 
-		String[][] returnString = new String[activities.size()+1][8];
-		returnString[0] = new String[] {"0", "                      No activity", "", "", "","","",""};
-		
-		for (int i = 1; i < activities.size()+1; i++) {
-			returnString[i] = activities.get(i-1).toStringArray();
+		String[][] returnString = new String[activities.size() + 1][8];
+		returnString[0] = new String[] { "0", "                      No activity", "", "", "", "", "", "" };
+
+		for (int i = 1; i < activities.size() + 1; i++) {
+			returnString[i] = activities.get(i - 1).toStringArray();
 		}
 
 		return returnString;
@@ -233,12 +235,6 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public void signUp() {
-		// TODO
-
-	}
-
-	@Override
 	public void openSignUpWindow() {
 		loginFrame.setVisible(false);
 		signUpFrame = new SignUpFrame(controller);
@@ -253,5 +249,15 @@ public class ApplicationController implements ApplicationControllerInterface {
 
 	public void showGraph(int activityId) throws IOException, InvalidTimeException, InvalidDateException {
 		GraphFrame graphFrame = new GraphFrame(controller, activityId);
+	}
+
+	public void showMap(int activityId, String activityName)
+			throws IOException, InvalidTimeException, InvalidDateException {
+		MapDrawerFrame mapFrame = new MapDrawerFrame(controller, activityId, activityName);
+	}
+
+	public void showStatisticalData(int activityId, String activityName)
+			throws IOException, InvalidTimeException, InvalidDateException, DataRetrievalException {
+		ActivityStatsFrame statsFrame = new ActivityStatsFrame(controller, activityId, activityName);
 	}
 }

@@ -9,15 +9,16 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class StyleComponents{
-	private static Color primaryColor = new Color(240, 120, 0);
-	private static Color hoverColor = new Color(255, 166, 77);
-	private static Color secondaryColor = new Color(246, 249, 239);
+	public static Color primaryColor = new Color(240, 120, 0);
+	public static Color hoverColor = new Color(255, 166, 77);
+	public static Color secondaryColor = new Color(246, 249, 239);
 	private static Color tertiaryColor = new Color(50, 66, 161);
 	private static Font textFont = new Font("Verdana", 1, 14);
 	private static Font smallerTextFont = new Font("Verdana", 1, 10);
@@ -61,6 +62,13 @@ public class StyleComponents{
 		return txtBox;
 	}
 	
+	static JTextArea styleDefaultTextArea(JTextArea txtArea) {
+		txtArea.setBackground(primaryColor);
+		txtArea.setFont(textFont);
+		txtArea.setForeground(secondaryColor);
+		txtArea.setBorder(txtFieldBorder);
+		return txtArea;
+	}
 	static JTextField styleDefaultTextBoxHover(JTextField txtBox) {
 		txtBox.setBackground(hoverColor);
 		return txtBox;
