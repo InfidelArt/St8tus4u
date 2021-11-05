@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 
 import javax.security.auth.login.FailedLoginException;
@@ -10,8 +9,6 @@ import date.InvalidDateException;
 import db.DataEntryException;
 import db.DataRetrievalException;
 import time.InvalidTimeException;
-import user.User;
-
 /*
  * What must the controller be able to do?
  * 

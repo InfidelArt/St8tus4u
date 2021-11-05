@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -86,8 +85,6 @@ public class ApplicationController implements ApplicationControllerInterface {
 			sb.append(subArray);
 		}
 		String password = sb.toString();
-		System.out.println("Username: " + username + "\nPassword: " + password + "\nGender: " + gender
-				+ "\nEncrypted Password: " + arrayPassword);
 		// TODO make it so database uses encrypted password (must change login method
 		// and user class)
 		sessionHandler.registerNewUser(username, password, gender);
@@ -255,10 +252,5 @@ public class ApplicationController implements ApplicationControllerInterface {
 
 	public void showGraph(int activityId) throws IOException, InvalidTimeException, InvalidDateException {
 		GraphFrame graphFrame = new GraphFrame(controller, activityId);
-	}
-
-	public void setCurrentActivity(String activityName) {
-		// TODO This will take activity name from cbxBox, then it will fill out the
-		// table data with chosen activity
 	}
 }

@@ -1,21 +1,9 @@
 package db;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.List;
-
 import javax.security.auth.login.FailedLoginException;
-
-import activity.Activity;
-import activity.ActivitySnapshot;
 import controller.ApplicationController;
-import dao.UserDao;
 import date.InvalidDateException;
-import session.SessionHandler;
 import time.InvalidTimeException;
 
 public class TestMain {

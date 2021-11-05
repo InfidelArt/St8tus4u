@@ -1,7 +1,5 @@
 package date;
 
-import time.InvalidTimeException;
-
 public class Date {
 	
 	private int year;

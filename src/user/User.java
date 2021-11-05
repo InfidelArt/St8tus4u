@@ -1,9 +1,6 @@
 package user;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-
-import activity.Activity;
 
 public class User implements UserInterface {
 	

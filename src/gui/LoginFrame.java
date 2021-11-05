@@ -1,7 +1,6 @@
 package gui;
 
 
-import java.awt.BorderLayout;
 import java.io.IOException;
 
 import javax.security.auth.login.FailedLoginException;

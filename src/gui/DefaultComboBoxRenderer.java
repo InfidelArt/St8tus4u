@@ -1,12 +1,9 @@
 package gui;
 
 import java.awt.Component;
-
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
 
 public class DefaultComboBoxRenderer implements ListCellRenderer {

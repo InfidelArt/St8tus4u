@@ -1,8 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Desktop;
-import java.awt.Dialog;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
