@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 public class StyleComponents{
 	public static Color primaryColor = new Color(240, 120, 0);
 	public static Color hoverColor = new Color(255, 166, 77);
-	public static Color secondaryColor = new Color(246, 249, 239);
+	public static Color secondaryColor = new Color(246, 249, 239); //Écru because using white and black in design is a crime
 	private static Color tertiaryColor = new Color(50, 66, 161);
 	private static Font textFont = new Font("Verdana", 1, 14);
 	private static Font smallerTextFont = new Font("Verdana", 1, 10);

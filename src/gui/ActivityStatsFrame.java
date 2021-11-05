@@ -61,6 +61,7 @@ public class ActivityStatsFrame extends JFrame{
 		txtActivityStats.setText(sb.toString());
 		this.add(txtActivityStats);
 		pack();
+		this.setSize(this.getWidth()+30, this.getHeight()+30);
 		this.setResizable(false);
 		this.setTitle("Statistical Info");
 		this.setVisible(true);
