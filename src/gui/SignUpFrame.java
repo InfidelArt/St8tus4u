@@ -104,14 +104,14 @@ public class SignUpFrame extends JFrame {
                     .addComponent(lblBottom, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)))
         );
 
-        GroupLayout jPanel1Layout = new GroupLayout(bottomPanel);
-        bottomPanel.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        GroupLayout bottomPanelLayout = new GroupLayout(bottomPanel);
+        bottomPanel.setLayout(bottomPanelLayout);
+        bottomPanelLayout.setHorizontalGroup(
+            bottomPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(signUpPanel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        bottomPanelLayout.setVerticalGroup(
+            bottomPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(signUpPanel, GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
         );
 

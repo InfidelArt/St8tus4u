@@ -143,11 +143,20 @@ public class UserSettingsFrame extends JFrame {
 	}
 
 	private void saveChanges() throws DataEntryException {
+		if(!txtAge.getText().equals("Age")) {
 		controller.setAge(Integer.parseInt(txtAge.getText()));
+		}
+		if(!txtWeight.getText().equals("Weight")) {
 		controller.setWeight(Double.parseDouble(txtWeight.getText()));
-		controller.setLength(Double.parseDouble(txtLength.getText()));
+		}
+		if(!txtLength.getText().equals("Length")) {
+			controller.setLength(Double.parseDouble(txtLength.getText()));
+		}
+		if(!txtUsername.getText().equals(controller.getUserData()[1])) {
 		controller.setUsername(txtUsername.getText());
+		} if(cbxGender.getSelectedIndex() != 0) {
 		controller.setGender(cbxGender.getItemAt(cbxGender.getSelectedIndex()));
+		}
 		dispose();
 	}
 }

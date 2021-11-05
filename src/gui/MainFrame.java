@@ -254,8 +254,10 @@ public class MainFrame extends JFrame {
 	}
 
 	private void editActivity() {
+		String s = cbxActivities.getItemAt(cbxActivities.getSelectedIndex());
+		activityId = s.split("\\.")[0];
 		try {
-			controller.changeActivityName(activityName, txtCurrentActivity.getText());
+			controller.changeActivityName(activityId, txtCurrentActivity.getText());
 		} catch (DataEntryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -267,11 +269,12 @@ public class MainFrame extends JFrame {
 
 	private void removeActivity() { // Now it takes in activity name, to change in the future
 		try {
-			controller.removeActivity(cbxActivities.getItemAt(cbxActivities.getSelectedIndex()));
+			controller.removeActivity(activityId);
 		} catch (DataEntryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		updateActivityList();
 	}
 	private void updateActivityList() {
 		try {
