@@ -74,6 +74,14 @@ public class StyleComponents{
 		return lbl;
 	}
 	
+	static JLabel styleMainFrameLabel(JLabel lbl) {
+		lbl.setFont(textFont);
+		lbl.setBackground(primaryColor);
+		lbl.setHorizontalAlignment(JTextField.CENTER);
+		lbl.setForeground(secondaryColor);
+		return lbl;
+	}
+	
 	static JLabel styleTitleLabel(JLabel lbl) {
 		lbl.setBackground(primaryColor);
 		lbl.setFont(titleFont);

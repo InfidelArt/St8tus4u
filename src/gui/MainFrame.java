@@ -123,9 +123,9 @@ public class MainFrame extends JFrame {
 		setResizable(false);
 		StyleComponents.styleDefaultJComboBox(cbxActivities);
 		StyleComponents.styleJPanel(bottomPanel);
-		StyleComponents.styleDefaultLabel(lblUsername);
-		StyleComponents.styleDefaultLabel(lblDataOne);
-		StyleComponents.styleDefaultLabel(lblDataTwo);
+		StyleComponents.styleTitleLabel(lblUsername);
+		StyleComponents.styleMainFrameLabel(lblDataOne);
+		StyleComponents.styleMainFrameLabel(lblDataTwo);
 		updateActivityList();
 		StyleComponents.styleJPanel(mainPanel);
 		StyleComponents.styleBorderPanel(mainPanel);
@@ -207,7 +207,6 @@ public class MainFrame extends JFrame {
 				GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE));
 		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(mainPanel,
 				GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE));
-
 		pack();
 	}
 
