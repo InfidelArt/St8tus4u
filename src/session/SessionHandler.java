@@ -82,7 +82,9 @@ public class SessionHandler {
 	public void removeActivity (int activityId) throws DataEntryException {
 		activityDao.delete(activityId);
 	}
-	
+	public void updateActivityName(int activityId, String newName) throws DataEntryException {
+		activityDao.update(activityId, newName);
+	}
 	public ArrayList<ActivitySnapshot> importLog(String pathToCSV)
 			throws IOException, InvalidTimeException, InvalidDateException {
 

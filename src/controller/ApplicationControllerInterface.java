@@ -114,9 +114,8 @@ public interface ApplicationControllerInterface {
 	/**
 	 * @param activityID
 	 * @param newName
-	 * @return true if the operation was successful, false if not.
 	 */
-	public boolean changeActivityName(String activityID, String newName);
+	public void changeActivityName(String activityID, String newName) throws DataEntryException;
 	
 	/**
 	 * Checks to see if there is a user currently logged in on the application.

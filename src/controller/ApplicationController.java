@@ -162,9 +162,12 @@ public class ApplicationController implements ApplicationControllerInterface {
 	}
 
 	@Override
-	public boolean changeActivityName(String activityID, String newName) {
-		// TODO Auto-generated method stub
-		return false;
+	public void changeActivityName(String activityID, String newName) throws DataEntryException {
+		try {
+			sessionHandler.updateActivityName(Integer.parseInt(activityID), newName);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setName(String name) throws DataEntryException {

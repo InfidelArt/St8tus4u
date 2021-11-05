@@ -254,7 +254,12 @@ public class MainFrame extends JFrame {
 	}
 
 	private void editActivity() {
-		controller.changeActivityName(activityName, txtCurrentActivity.getText());
+		try {
+			controller.changeActivityName(activityName, txtCurrentActivity.getText());
+		} catch (DataEntryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		txtCurrentActivity.setText("Current Activity: ");
 		txtCurrentActivity.addMouseListener(new AutoEraseListener(txtCurrentActivity.getText(), txtCurrentActivity));
 		updateActivityList();

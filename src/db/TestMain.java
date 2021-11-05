@@ -34,7 +34,7 @@ public class TestMain {
 		
 		
 		
-		String userDataUsername = controller.getUserData()[0];
+		controller.changeActivityName("25", "Maraton");
 		
 		
 		

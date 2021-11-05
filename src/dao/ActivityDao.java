@@ -131,8 +131,24 @@ public class ActivityDao {
 		return null;
 	}
 
-	public void update(Object t) throws DataEntryException {
-		// TODO Auto-generated method stub
+	public void update(int id, String newName) throws DataEntryException {  
+		// TODO only updates name of an activity right now because it's all the application needs, but should be expanded in the future to update a whole activity
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = dbConnectionManager.prepareStatement(
+					"UPDATE activity_list "
+					+ "SET activity_name=? "
+					+ "WHERE activity_id=?"
+					);
+			preparedStatement.setString(1, newName);
+			preparedStatement.setInt(2, id);
+			preparedStatement.execute();
+			System.out.println("Successfully updated activity " + newName);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DataEntryException("Could not update activity data: " + e.getMessage());
+		}
 		
 	}
 
