@@ -18,6 +18,7 @@ public class ActivityStatsFrame extends JFrame{
 	
 	public ActivityStatsFrame(ApplicationController controller, int activityId, String activityName) throws IOException, DataRetrievalException {
 		this.setLayout(new GridLayout(1,1));
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		txtActivityStats = new JTextArea("");
 		StyleComponents.styleDefaultTextArea(txtActivityStats);
 		txtActivityStats.setEditable(false);
