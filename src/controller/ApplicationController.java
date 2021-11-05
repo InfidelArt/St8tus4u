@@ -105,10 +105,11 @@ public class ApplicationController implements ApplicationControllerInterface {
 	public String[][] getUserActivities() throws DataRetrievalException {
 		ArrayList<Activity> activities = sessionHandler.getUserActivities();
 
-		String[][] returnString = new String[activities.size()][8];
-
-		for (int i = 0; i < activities.size(); i++) {
-			returnString[i] = activities.get(i).toStringArray();
+		String[][] returnString = new String[activities.size()+1][8];
+		returnString[0] = new String[] {"0", "                      No activity", "", "", "","","",""};
+		
+		for (int i = 1; i < activities.size()+1; i++) {
+			returnString[i] = activities.get(i-1).toStringArray();
 		}
 
 		return returnString;
