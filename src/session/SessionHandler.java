@@ -38,7 +38,9 @@ public class SessionHandler {
 		} catch (RuntimeException e) {
 			throw new FailedLoginException(e.getMessage());
 		}
+		System.out.println("Verifying password...");
 		if (returnUser.verifyPassword(password)) {
+			System.out.println("Password verified!");
 			loggedInUser = returnUser;
 			System.out.println("Logged in to user " + username + " successfully.");
 		} else {

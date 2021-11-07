@@ -1,11 +1,12 @@
 package user;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.InputMismatchException;
 
 public class User implements UserInterface {
 	
 	private final int MAX_USERNAME_LENGTH = 24;
-	private final int MAX_PASSWORD_LENGTH = 24;
 	private enum Genders {MALE, FEMALE, OTHER}
 	private Genders gender;
 	private String username;
@@ -19,7 +20,8 @@ public class User implements UserInterface {
 	
 	public User(String username, String password, Object name, Object weight, Object length, Object age, String gender) throws InputMismatchException {
 		setUsername(username);
-		setPassword(password);
+		checkValidPassword(password);
+	    setPassword(encryptPassword(password));	
 		setGender(gender);
 		
 		if (name != null) {
@@ -49,7 +51,6 @@ public class User implements UserInterface {
 		setId(id);
 	}
 	
-	
 	@Override
 	public void setUsername(String username) throws InputMismatchException {
 		// TODO Auto-generated method stub
@@ -64,15 +65,17 @@ public class User implements UserInterface {
 	}
 
 	@Override
-	public void setPassword(String password) throws InputMismatchException {
+	public void setPassword(String password) {
 		// TODO Auto-generated method stub
-		if (checkValidPassword(password)) 
-			this.password = password;
+		this.password = password;
 	}
-
 	@Override
 	public boolean verifyPassword(String password) {
-		if (password.equals(getPassword())) {
+		System.out.println("Password: " + password);
+		System.out.println("Encrypted password: " + encryptPassword(password));
+		System.out.println("Twice encrypted: " + encryptPassword(encryptPassword(password)));
+		System.out.println("DB password: " + getPassword());
+		if (encryptPassword(encryptPassword(password)).equals(getPassword())) {
 			return true;
 		} 
 		else {
@@ -146,12 +149,32 @@ public class User implements UserInterface {
 		if (password==null) {
 			throw new InputMismatchException("No Password was entered.");
 		}
-		if (password.length() > MAX_PASSWORD_LENGTH) 
-			throw new InputMismatchException("Password is too long. A password can be a maximum of " + MAX_PASSWORD_LENGTH + " characters.");
 		if (password.contains(" "))
 			throw new InputMismatchException("Password cannot contain spaces.");
 		
 		return true;
+	}
+	private String encryptPassword(String password) {
+		String encryptedPassword = null;
+		
+		try {
+			MessageDigest mD = MessageDigest.getInstance("MD5"); 
+			mD.update(password.getBytes());
+			byte[] bytes = mD.digest();
+			
+			StringBuilder stringBuilder = new StringBuilder();
+			for (int i=0; i < bytes.length; i++) {
+				stringBuilder.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			
+			encryptedPassword = stringBuilder.toString();
+			
+			
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		return encryptedPassword;
 	}
 	/**
 	 * Checks if the given gender input is valid and returns an appropriate enum value
