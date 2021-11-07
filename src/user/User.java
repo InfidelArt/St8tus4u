@@ -71,10 +71,6 @@ public class User implements UserInterface {
 	}
 	@Override
 	public boolean verifyPassword(String password) {
-		System.out.println("Password: " + password);
-		System.out.println("Encrypted password: " + encryptPassword(password));
-		System.out.println("Twice encrypted: " + encryptPassword(encryptPassword(password)));
-		System.out.println("DB password: " + getPassword());
 		if (encryptPassword(encryptPassword(password)).equals(getPassword())) {
 			return true;
 		} 
